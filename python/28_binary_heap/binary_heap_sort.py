@@ -25,12 +25,12 @@ class BinaryHeapSort(BinaryHeap):
         self._type_assert(nums)
 
         # heapify
-        self._heapify(nums, length-1)
+        self._heapify(nums, length - 1)
 
         # sort
-        for i in range(length-1, 0, -1):
+        for i in range(length - 1, 0, -1):
             nums[0], nums[i] = nums[i], nums[0]
-            self._heap_down(nums, 0, i-1)
+            self._heap_down(nums, 0, i - 1)
 
         return
 

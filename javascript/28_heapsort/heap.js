@@ -18,7 +18,7 @@ class Heap {
             },
             //从point往下 堆化
             heapify(point = 1) {
-                let { swap, store } = this;
+                let {swap, store} = this;
                 while (true) {
                     let lPoint = point * 2;
                     let rPoint = point * 2 + 1;
@@ -45,6 +45,7 @@ class Heap {
         }
 
     }
+
     insert(node) {
         let store = this.PRIVATE.store;
         let HeapUtil = this.PRIVATE;
@@ -58,6 +59,7 @@ class Heap {
             sub = sub / 2 | 0;
         }
     }
+
     getMax() {
         let store = this.PRIVATE.store;
         let point = store.length - 1;
@@ -93,6 +95,7 @@ function HeapTest() {
     console.log('check:', isHeapArr(maxHeap.PRIVATE.store));
 
 }
+
 function createTest() {
     console.log('随机创建测试:')
     let arr = [];

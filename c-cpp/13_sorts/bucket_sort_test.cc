@@ -8,14 +8,14 @@
 
 #include "bucket_sort.hpp"
 
-template <size_t BucketSize,
-          typename Container,
-          typename T = typename Container::value_type,
-          typename Compare = std::less<T>>
+template<size_t BucketSize,
+        typename Container,
+        typename T = typename Container::value_type,
+        typename Compare = std::less <T>>
 void test_bucket_sort(Container cont, Compare comp = Compare()) {
     bucket_sort<BucketSize>(cont.begin(), cont.end(), comp);
     std::transform(cont.begin(), cont.end(), std::ostream_iterator<T>(std::cout, " "),
-            [](T i){ return i; });
+                   [](T i) { return i; });
     std::cout << std::endl;
 }
 

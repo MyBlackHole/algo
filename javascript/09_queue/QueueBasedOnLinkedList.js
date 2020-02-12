@@ -37,6 +37,7 @@ class QueueBasedOnLinkedList {
         }
     }
 }
+
 // Test
 const newQueue = new QueueBasedOnLinkedList()
 // 插入元素

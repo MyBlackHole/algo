@@ -2,7 +2,7 @@
 #include "array_queue.hpp"
 
 int main() {
-    auto do_traverse = [&](auto item){ std::cout << item << ' '; };
+    auto do_traverse = [&](auto item) { std::cout << item << ' '; };
 
     ArrayQueue<int> array_queue_1(3);
     array_queue_1.enqueue(1);

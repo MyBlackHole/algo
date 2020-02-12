@@ -34,7 +34,7 @@ class CircularQueue {
     }
 
     dequeue() {
-        if(this.head == null) return -1
+        if (this.head == null) return -1
 
         if (this.head === this.tail) {
             const value = this.head.element
@@ -45,7 +45,7 @@ class CircularQueue {
             this.head = this.head.next
             this.tail.next = this.head
             return value
-        } 
+        }
     }
 
     display() {
@@ -57,6 +57,7 @@ class CircularQueue {
         }
     }
 }
+
 // Test
 const newCircularQueue = new CircularQueue()
 // 插入元素

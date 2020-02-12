@@ -2,7 +2,7 @@
 #include "linked_queue.hpp"
 
 int main() {
-    auto do_traverse = [&](auto item){ std::cout << item << ' '; };
+    auto do_traverse = [&](auto item) { std::cout << item << ' '; };
 
     LinkedQueue<int> linked_queue_1;
     linked_queue_1.enqueue(1);

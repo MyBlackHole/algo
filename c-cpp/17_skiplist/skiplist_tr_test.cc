@@ -12,7 +12,7 @@
 int main() {
     // 1. UT for skiplist_detail::random_level
     skiplist_detail::random_level<size_t> rl(5, 0.5);
-    std::map<size_t, size_t>    hist;
+    std::map <size_t, size_t> hist;
     for (size_t i = 0; i != 10000; ++i) {
         ++hist[rl()];
     }

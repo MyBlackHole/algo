@@ -6,22 +6,23 @@
 
 from typing import Optional, List
 
+
 class Heap:
     def __init__(self, capacity: int):
         self._data = [0] * (capacity + 1)
         self._capacity = capacity
         self._count = 0
-    
+
     @classmethod
     def _parent(cls, child_index: int) -> int:
         """The parent index."""
         return child_index // 2
-    
+
     @classmethod
     def _left(cls, parent_index: int) -> int:
         """The left child index."""
         return 2 * parent_index
-    
+
     @classmethod
     def _right(cls, parent_index: int) -> int:
         """The right child index."""
@@ -63,9 +64,9 @@ class Heap:
     @classmethod
     def build_heap(cls, a: List[int]) -> None:
         """Data in a needs to start from index 1."""
-        for i in range((len(a) - 1)//2, 0, -1):
+        for i in range((len(a) - 1) // 2, 0, -1):
             cls._siftdown(a, len(a) - 1, i)
-    
+
     @classmethod
     def sort(cls, a: List[int]) -> None:
         """Data in a needs to start from index 1."""
@@ -77,7 +78,7 @@ class Heap:
             cls._siftdown(a, k)
 
     def __repr__(self):
-        return self._data[1 : self._count + 1].__repr__()
+        return self._data[1: self._count + 1].__repr__()
 
 
 if __name__ == "__main__":

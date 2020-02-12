@@ -1,4 +1,3 @@
-
 class BitMap {
     constructor(n) {
         this.nbits = n;
@@ -7,7 +6,7 @@ class BitMap {
     }
 
     get(k) {
-        if( k > this.nbits) return false; 
+        if (k > this.nbits) return false;
 
         let byteIndex = Math.floor(k / 16);
         let bitIndex = k % 16;
@@ -16,7 +15,7 @@ class BitMap {
     }
 
     set(k) {
-        if( k > this.nbits) return; 
+        if (k > this.nbits) return;
 
         let byteIndex = Math.floor(k / 16);
         let bitIndex = k % 16;
@@ -39,6 +38,6 @@ aBitMap.set(15);
 aBitMap.set(17);
 aBitMap.set(19);
 
-for(let i = 0; i < 21; i++) {
+for (let i = 0; i < 21; i++) {
     console.log(aBitMap.get(i));
 }

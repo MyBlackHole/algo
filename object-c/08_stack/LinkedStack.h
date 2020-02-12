@@ -13,7 +13,9 @@
 @interface LinkedStack : NSObject
 
 - (BOOL)isEmpty;
+
 - (void)push:(int)value;
+
 - (int)pop;
 
 @end

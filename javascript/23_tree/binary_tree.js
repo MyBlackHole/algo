@@ -5,6 +5,7 @@ class Node {
         this.right = null;
     }
 }
+
 /**
  * 搜索二叉树
  *  允许重复值添加
@@ -14,6 +15,7 @@ class SearchTree {
     constructor() {
         this.root = null;
     }
+
     insert(num) {
         let node = new Node(num);
         if (this.root === null) {
@@ -28,6 +30,7 @@ class SearchTree {
         }
 
     }
+
     remove(num) {
         let point = this.root;
         let prent = null;
@@ -67,6 +70,7 @@ class SearchTree {
             break;
         }
         return res;
+
         function delMethod(delNode, parent) {
             let p = delNode; // p指向要删除的节点
             let pp = parent; // pp记录的是p的父节点 
@@ -92,16 +96,15 @@ class SearchTree {
 
             if (pp == null) {
                 tree.root = child
-            }
-            else if (pp.left == p) {
+            } else if (pp.left == p) {
                 pp.left = child;
-            }
-            else {
+            } else {
                 pp.right = child;
             }
         }
 
     }
+
     //中序遍历
     print() {
         let point = this.root;
@@ -110,6 +113,7 @@ class SearchTree {
             console.log(point.value);
             printAll(point.right)
         }
+
         function printAll(point) {
             if (point == null) {
                 return
@@ -119,6 +123,7 @@ class SearchTree {
             printAll(point.right)
         }
     }
+
     find(num) {
         if (this.root === null) {
             this.root = node;
@@ -126,6 +131,7 @@ class SearchTree {
         }
         return this.getPrev(num, true);
     }
+
     //添加和查找的公用部分
     getPrev(num, find = false) {
         let point = this.root;
@@ -171,7 +177,6 @@ class SearchTree {
 }
 
 
-
 function baseTest() {
     let searchTree = new SearchTree();
     console.log('step 1:')
@@ -190,6 +195,7 @@ function baseTest() {
 
 
 }
+
 //删除测试
 function delTest() {
     let searchTree = new SearchTree();

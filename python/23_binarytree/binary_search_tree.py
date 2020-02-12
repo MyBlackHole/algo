@@ -25,7 +25,7 @@ class BinarySearchTree:
         :param data:
         :return:
         """
-        assert(isinstance(data, int))
+        assert (isinstance(data, int))
 
         if self.root is None:
             self.root = TreeNode(data)
@@ -40,7 +40,7 @@ class BinarySearchTree:
 
             new_node = TreeNode(data)
             new_node.parent = p
-            
+
             if data < p.val:
                 p.left = new_node
             else:
@@ -55,7 +55,7 @@ class BinarySearchTree:
         :param data:
         :return:
         """
-        assert(isinstance(data, int))
+        assert (isinstance(data, int))
 
         # 所有搜索到的节点
         ret = []
@@ -200,7 +200,7 @@ class BinarySearchTree:
         ret.extend(self._in_order(n.left))
         ret.append(n.val)
         ret.extend(self._in_order(n.right))
-        
+
         return ret
 
     def __repr__(self):
@@ -227,8 +227,8 @@ class BinarySearchTree:
 
             if n[0] is not None:
                 ret.append((n[0].val, n[1]))
-                q.put((n[0].left, n[1]*2))
-                q.put((n[0].right, n[1]*2+1))
+                q.put((n[0].left, n[1] * 2))
+                q.put((n[0].right, n[1] * 2 + 1))
 
         return ret
 
@@ -238,21 +238,21 @@ class BinarySearchTree:
         :return:
         """
         nodes = self._bfs()
-        
+
         if not nodes:
             print('This tree has no nodes.')
             return
 
         layer_num = int(math.log(nodes[-1][1], 2)) + 1
-        
+
         prt_nums = []
-        
+
         for i in range(layer_num):
-            prt_nums.append([None]*2**i)
+            prt_nums.append([None] * 2 ** i)
 
         for v, p in nodes:
-            row = int(math.log(p ,2))
-            col = p % 2**row
+            row = int(math.log(p, 2))
+            col = p % 2 ** row
             prt_nums[row][col] = v
 
         prt_str = ''

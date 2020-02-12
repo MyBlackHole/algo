@@ -4,23 +4,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct Array
-{
-    // pÖ¸ÕëµÄ¿Õ¼ä´óÐ¡
+typedef struct Array {
+    // pæŒ‡é’ˆçš„ç©ºé—´å¤§å°
     size_t size;
-    // pÖ¸ÕëÒÑ¾­Ê¹ÓÃµÄ¿Õ¼ä´óÐ¡
+    // pæŒ‡é’ˆå·²ç»ä½¿ç”¨çš„ç©ºé—´å¤§å°
     size_t len;
-    // Êý¾ÝÀàÐÍµÄ´óÐ¡
+    // æ•°æ®ç±»åž‹çš„å¤§å°
     size_t typeSize;
-    // Öµ¸´ÖÆº¯Êý
-    void(*dup)(void *ptr, void *key);
-    // ÖµÊÍ·Åº¯Êý
-    void(*free)(void *ptr);
-    // Öµ±È½Ïº¯Êý
-    int(*match)(void *ptr, void *key);
-    // ´æ·ÅÊý¾ÝµÄÖ¸Õë
-    void   *p;
-}Array;
+
+    // å€¼å¤åˆ¶å‡½æ•°
+    void (*dup)(void *ptr, void *key);
+
+    // å€¼é‡Šæ”¾å‡½æ•°
+    void (*free)(void *ptr);
+
+    // å€¼æ¯”è¾ƒå‡½æ•°
+    int (*match)(void *ptr, void *key);
+
+    // å­˜æ”¾æ•°æ®çš„æŒ‡é’ˆ
+    void *p;
+} Array;
 
 #define arraySetDupMethod(a, m) ((a)->dup = (m))
 #define arraySetFreeMethod(a, m) ((a)->free = (m))
@@ -30,19 +33,26 @@ typedef struct Array
 #define arrayGetFree(a) ((a)->free)
 #define arrayGetMatchMethod(a) ((a)->match)
 
-Array* arrayCreate();
+Array *arrayCreate();
+
 void arrayInit(Array *array, int size, int typeSize);
 
 int arrayInsert(Array *array, size_t pos, void *const value);
-size_t arraySearchValue(Array *array, void* const value);
-void* arrayIndex(Array *array, size_t index);
+
+size_t arraySearchValue(Array *array, void *const value);
+
+void *arrayIndex(Array *array, size_t index);
+
 int arrayModify(Array *array, size_t pos, void *const value);
 
 size_t arrayLen(Array *array);
+
 size_t arraySize(Array *array);
 
 void arrayEmpty(Array *array);
+
 void arrayDelValue(Array *array, void *value);
+
 void arrayDelIndex(Array *array, size_t pos);
 
 #endif // !__ARRAY_H__

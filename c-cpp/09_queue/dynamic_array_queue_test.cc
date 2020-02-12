@@ -2,7 +2,7 @@
 #include "dynamic_array_queue.hpp"
 
 int main() {
-    auto do_traverse = [&](auto item){ std::cout << item << ' '; };
+    auto do_traverse = [&](auto item) { std::cout << item << ' '; };
 
     DynamicArrayQueue<int> dynamic_array_queue_1(3);
     dynamic_array_queue_1.enqueue(1);

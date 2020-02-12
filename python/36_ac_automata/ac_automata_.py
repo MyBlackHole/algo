@@ -34,7 +34,7 @@ def ac_automata(main: str, ac_trie: ACTrie) -> list:
             q = p.get_child(c)
             while q != root:
                 if q.is_ending_char:
-                    ret.append((i-q.length+1, i))
+                    ret.append((i - q.length + 1, i))
                     # ret.append(main[i-q.length+1:i+1])
                 q = q.fail
             p = p.get_child(c)
@@ -83,6 +83,6 @@ if __name__ == '__main__':
     filter_range_list = ac_automata(m_str, ac_trie)
     str_filtered = m_str
     for start, end in filter_range_list:
-        str_filtered = str_filtered.replace(str_filtered[start:end+1], '*'*(end+1-start))
+        str_filtered = str_filtered.replace(str_filtered[start:end + 1], '*' * (end + 1 - start))
 
     print('after filtered: {}'.format(str_filtered))

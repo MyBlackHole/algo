@@ -2,7 +2,7 @@
 #include "circular_queue.hpp"
 
 int main() {
-    auto do_traverse = [&](auto item){ std::cout << item << ' '; };
+    auto do_traverse = [&](auto item) { std::cout << item << ' '; };
 
     CircularQueue<int> circular_queue_1(4);
     circular_queue_1.enqueue(1);

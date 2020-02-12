@@ -22,7 +22,7 @@ def longest_increasing_subsequence(nums: List[int]) -> int:
     n = len(nums)
     # memo[i][j] 表示第i次决策，长度为j的lis的 最小的 末尾元素数值
     # 每次决策都根据上次决策的所有可能转化，空间上可以类似背包优化为O(n)
-    memo = [[-1] * (n+1) for _ in range(n)]
+    memo = [[-1] * (n + 1) for _ in range(n)]
 
     # 第一列全赋值为0，表示每次决策都不选任何数
     for i in range(n):
@@ -31,18 +31,18 @@ def longest_increasing_subsequence(nums: List[int]) -> int:
     memo[0][1] = nums[0]
 
     for i in range(1, n):
-        for j in range(1, n+1):
+        for j in range(1, n + 1):
             # case 1: 长度为j的lis在上次决策后存在，nums[i]比长度为j-1的lis末尾元素大
-            if memo[i-1][j] != -1 and nums[i] > memo[i-1][j-1]:
-                memo[i][j] = min(nums[i], memo[i-1][j])
+            if memo[i - 1][j] != -1 and nums[i] > memo[i - 1][j - 1]:
+                memo[i][j] = min(nums[i], memo[i - 1][j])
 
             # case 2: 长度为j的lis在上次决策后存在，nums[i]比长度为j-1的lis末尾元素小/等
-            if memo[i-1][j] != -1 and nums[i] <= memo[i-1][j-1]:
-                memo[i][j] = memo[i-1][j]
+            if memo[i - 1][j] != -1 and nums[i] <= memo[i - 1][j - 1]:
+                memo[i][j] = memo[i - 1][j]
 
-            if memo[i-1][j] == -1:
+            if memo[i - 1][j] == -1:
                 # case 3: 长度为j的lis不存在，nums[i]比长度为j-1的lis末尾元素大
-                if nums[i] > memo[i-1][j-1]:
+                if nums[i] > memo[i - 1][j - 1]:
                     memo[i][j] = nums[i]
                 # case 4: 长度为j的lis不存在，nums[i]比长度为j-1的lis末尾元素小/等
                 break

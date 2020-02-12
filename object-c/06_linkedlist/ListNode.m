@@ -21,7 +21,7 @@
     return [[self alloc] initWithValue:value];
 }
 
-- (NSString*)debugDescription {
+- (NSString *)debugDescription {
     return [NSString stringWithFormat:@"%d", _value];
 }
 

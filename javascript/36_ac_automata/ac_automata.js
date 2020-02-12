@@ -1,8 +1,7 @@
-
 MAX_LEN = 128;
 
 class ACNode {
-    constructor(data){
+    constructor(data) {
         this.data = data;
         this.children = new Array(MAX_LEN);
         this.isEndingChar = false;
@@ -13,15 +12,15 @@ class ACNode {
 
 class ACTree {
 
-    constructor(data){
+    constructor(data) {
         this.root = new ACNode('/')
     }
 
-    insert (text) {
+    insert(text) {
         let node = this.root;
         for (let char of text) {
             let index = char.charCodeAt() + 1;
-            if(!node.children[index]) {
+            if (!node.children[index]) {
                 node.children[index] = new ACNode(char);
             }
             node = node.children[index];
@@ -43,21 +42,21 @@ class ACTree {
                 let pc = p.children[i];
                 if (!pc) {
                     continue;
-                } 
+                }
 
-                if(p == root) {
+                if (p == root) {
                     pc.fail = root;
                 } else {
                     let q = p.fail;
                     while (q) {
                         let qc = q.children[pc.data.charCodeAt() + 1];
-                        if(qc) {
+                        if (qc) {
                             pc.fail = qc;
                             break;
                         }
                         q = q.fail;
                     }
-                    if(!q) {
+                    if (!q) {
                         pc.fail = root;
                     }
                 }
@@ -66,24 +65,24 @@ class ACTree {
         }
     }
 
-    match (text) {
+    match(text) {
         let root = this.root;
         let n = text.length;
         let p = root;
 
-        for(let i = 0; i < n; i++) {
+        for (let i = 0; i < n; i++) {
             let idx = text[i].charCodeAt() + 1;
-            while(!p.children[idx] && p != root){
+            while (!p.children[idx] && p != root) {
                 p = p.fail;
             }
 
             p = p.children[idx];
-            if(!p) {
+            if (!p) {
                 p = root;
             }
 
             let tmp = p;
-            while ( tmp != root) {
+            while (tmp != root) {
                 if (tmp.isEndingChar == true) {
                     console.log(`Start from ${i - p.length + 1}, length: ${p.length}`);
                 }

@@ -10,16 +10,16 @@
 
 @implementation SinglyLinkedList
 
-- (ListNode*)nodeWithValue:(int)value {
-    ListNode* current = _head;
+- (ListNode *)nodeWithValue:(int)value {
+    ListNode * current = _head;
     while (current && current.value != value) {
         current = current.next;
     }
     return current;
 }
 
-- (ListNode*)nodeAtIndex:(NSUInteger)index {
-    ListNode* current = _head;
+- (ListNode *)nodeAtIndex:(NSUInteger)index {
+    ListNode * current = _head;
     NSUInteger position = 0;
     while (current && position != index) {
         current = current.next;
@@ -29,34 +29,52 @@
 }
 
 - (void)insertNodeWithValue:(int)value {
-    ListNode* aNode = [ListNode nodeWithValue:value];
+    ListNode * aNode = [ListNode nodeWithValue:value];
     [self insertNode:aNode];
 }
 
-- (void)insertNode:(nonnull ListNode *)node {
+- (void)insertNode:(nonnull ListNode
+
+*)node {
     node.next = _head;
     _head = node;
 }
 
-+ (void)insertNodeWithValue:(int)value afterNode:(nonnull ListNode *)node {
-    ListNode* aNode = [ListNode nodeWithValue:value];
++ (void)insertNodeWithValue:(int)value afterNode:(nonnull ListNode
+
+*)node {
+    ListNode * aNode = [ListNode nodeWithValue:value];
     [SinglyLinkedList insertNode:aNode afterNode:node];
 }
 
-+ (void)insertNode:(nonnull ListNode *)aNode afterNode:(nonnull ListNode *)node {
++ (void)insertNode:(nonnull ListNode
+
+*)
+aNode afterNode
+:(
+nonnull ListNode
+*)node {
     aNode.next = node.next;
     node.next = aNode;
 }
 
-- (void)insertNodeWithValue:(int)value beforeNode:(nonnull ListNode *)node {
-    ListNode* aNode = [ListNode nodeWithValue:value];
+- (void)insertNodeWithValue:(int)value beforeNode:(nonnull ListNode
+
+*)node {
+    ListNode * aNode = [ListNode nodeWithValue:value];
     [self insertNode:aNode beforeNode:node];
 }
 
-- (void)insertNode:(nonnull ListNode *)aNode beforeNode:(nonnull ListNode *)node {
-    ListNode* fakeHead = [ListNode nodeWithValue:0];
+- (void)insertNode:(nonnull ListNode
+
+*)
+aNode beforeNode
+:(
+nonnull ListNode
+*)node {
+    ListNode * fakeHead = [ListNode nodeWithValue:0];
     fakeHead.next = _head;
-    ListNode* current = fakeHead;
+    ListNode * current = fakeHead;
     while (current.next && current.next != node) {
         current = current.next;
     }
@@ -67,14 +85,16 @@
     current.next = aNode;
 }
 
-- (void)deleteNode:(nonnull ListNode *)node {
+- (void)deleteNode:(nonnull ListNode
+
+*)node {
     if (node.next) {
         node.value = node.next.value;
         node.next = node.next.next;
         return;
     }
     if (_head == nil) return;
-    ListNode* current = _head;
+    ListNode * current = _head;
     while (current.next && current.next != node) {
         current = current.next;
     }
@@ -82,10 +102,10 @@
 }
 
 - (void)deleteNodesWithValue:(int)value {
-    ListNode* fakeHead = [ListNode nodeWithValue:value+1];
+    ListNode * fakeHead = [ListNode nodeWithValue:value + 1];
     fakeHead.next = _head;
-    ListNode* prev = fakeHead;
-    ListNode* current = _head;
+    ListNode * prev = fakeHead;
+    ListNode * current = _head;
     while (current) {
         if (current.value != value) {
             prev.next = current;
@@ -99,9 +119,9 @@
     _head = fakeHead.next;
 }
 
-- (NSString*)debugDescription {
-    NSMutableString* info = [[NSMutableString alloc] init];
-    ListNode* current = _head;
+- (NSString *)debugDescription {
+    NSMutableString *info = [[NSMutableString alloc] init];
+    ListNode * current = _head;
     if (current) {
         [info appendString:current.debugDescription];
     }

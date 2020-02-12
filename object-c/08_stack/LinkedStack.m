@@ -9,10 +9,9 @@
 #import "LinkedStack.h"
 #import "ListNode.h"
 
-@implementation LinkedStack
-{
-    @private
-    ListNode* _top;
+@implementation LinkedStack {
+@private
+    ListNode *_top;
 }
 
 - (BOOL)isEmpty {

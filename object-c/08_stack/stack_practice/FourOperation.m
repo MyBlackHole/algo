@@ -6,14 +6,14 @@ const NSDictionary *operationPriorityDict() {
 }
 
 @implementation FourOperation {
-    @private
+@private
     Stack *_optStack;
     Stack *_numStack;
     NSNumberFormatter *_numFormatter;
 }
 
 + (FourOperation *)shared {
-    static FourOperation* single = nil;
+    static FourOperation *single = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         single = [FourOperation new];
@@ -31,27 +31,27 @@ const NSDictionary *operationPriorityDict() {
 
 - (id)caculateExpression:(NSString *)expression {
     NSArray *elements = [expression componentsSeparatedByString:@" "];
-    
+
     for (NSString *obj in elements) {
         NSNumber *numb = [_numFormatter numberFromString:obj];
         if (numb) { // 运算数
             [_numStack push:numb];
         } else { // 操作符
-            
+
             // 如果栈顶操作符优先级大于等于当前操作符
             while ([self _topOperationPriorityIsHigherOrEqualToOperation:obj]) {
-                
+
                 // 取出栈顶的操作符和两个操作数做一次运算
                 NSNumber *res = [self _excuteOnceCaculate];
-                
+
                 // 计算结果存入栈
                 [_numStack push:res];
             }
-            
+
             [_optStack push:obj];
         }
     }
-    
+
     // 如果操作符存在栈中，依次取出做运算
     NSNumber *res = nil;
     while ([_optStack top]) {

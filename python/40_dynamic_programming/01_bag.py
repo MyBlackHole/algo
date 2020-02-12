@@ -13,16 +13,16 @@ def bag(items_info: List[int], capacity: int) -> int:
     :return: 最大装载重量
     """
     n = len(items_info)
-    memo = [[-1]*(capacity+1) for i in range(n)]
+    memo = [[-1] * (capacity + 1) for i in range(n)]
     memo[0][0] = 1
     if items_info[0] <= capacity:
         memo[0][items_info[0]] = 1
 
     for i in range(1, n):
-        for cur_weight in range(capacity+1):
-            if memo[i-1][cur_weight] != -1:
-                memo[i][cur_weight] = memo[i-1][cur_weight]   # 不选
-                if cur_weight + items_info[i] <= capacity:    # 选
+        for cur_weight in range(capacity + 1):
+            if memo[i - 1][cur_weight] != -1:
+                memo[i][cur_weight] = memo[i - 1][cur_weight]  # 不选
+                if cur_weight + items_info[i] <= capacity:  # 选
                     memo[i][cur_weight + items_info[i]] = 1
 
     for w in range(capacity, -1, -1):
@@ -39,18 +39,18 @@ def bag_with_max_value(items_info: List[Tuple[int, int]], capacity: int) -> int:
     :return: 最大装载价值
     """
     n = len(items_info)
-    memo = [[-1]*(capacity+1) for i in range(n)]
+    memo = [[-1] * (capacity + 1) for i in range(n)]
     memo[0][0] = 0
     if items_info[0][0] <= capacity:
         memo[0][items_info[0][0]] = items_info[0][1]
 
     for i in range(1, n):
-        for cur_weight in range(capacity+1):
-            if memo[i-1][cur_weight] != -1:
-                memo[i][cur_weight] = memo[i-1][cur_weight]
+        for cur_weight in range(capacity + 1):
+            if memo[i - 1][cur_weight] != -1:
+                memo[i][cur_weight] = memo[i - 1][cur_weight]
                 if cur_weight + items_info[i][0] <= capacity:
                     memo[i][cur_weight + items_info[i][0]] = max(memo[i][cur_weight + items_info[i][0]],
-                                                                 memo[i-1][cur_weight] + items_info[i][1])
+                                                                 memo[i - 1][cur_weight] + items_info[i][1])
     return max(memo[-1])
 
 

@@ -7,10 +7,10 @@
 
 #include "bsearch_varients.hpp"
 
-template <typename VecT, typename T = typename VecT::value_type>
-void test_bsearch(const VecT& test,
-                            T target,
-                BsearchPolicy policy = BsearchPolicy::UNSPECIFIED) {
+template<typename VecT, typename T = typename VecT::value_type>
+void test_bsearch(const VecT &test,
+                  T target,
+                  BsearchPolicy policy = BsearchPolicy::UNSPECIFIED) {
     auto it = bsearch(test.begin(), test.end(), target, policy);
     std::cout << std::distance(test.begin(), it) << std::endl;
 }

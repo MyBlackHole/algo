@@ -14,6 +14,7 @@
 @property ListNode *next;
 
 - (instancetype)initWithValue:(int)value;
+
 + (instancetype)nodeWithValue:(int)value;
 
 @end

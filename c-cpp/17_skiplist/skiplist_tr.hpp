@@ -22,37 +22,41 @@
 #include <iterator>
 
 namespace skiplist_detail {
-template <typename Key, typename Value>
-struct InternalNode {
-    using iterator = typename std::list<InternalNode>::iterator;
-    const Key             key;
-    std::multiset<Value>  values;
-    std::vector<iterator> forwards;
+    template<typename Key, typename Value>
+    struct InternalNode {
+        using iterator = typename std::list<InternalNode>::iterator;
+        const Key key;
+        std::multiset <Value> values;
+        std::vector <iterator> forwards;
 
-    InternalNode() = delete;
-    explicit InternalNode(const Key& k) : key(k) {}
-};
+        InternalNode() = delete;
 
-template <typename IntType>
-class random_level {
-  private:
-    mutable std::random_device                  rd;
-    mutable std::mt19937                        gen = std::mt19937(rd());
-    mutable std::binomial_distribution<IntType> dist;
+        explicit InternalNode(const Key &k) : key(k) {}
+    };
 
-  public:
-    random_level(IntType max_level, double prob) : dist(max_level - 1, prob) {}
-    inline IntType operator()() const { return dist(gen); }
-};
+    template<typename IntType>
+    class random_level {
+    private:
+        mutable std::random_device rd;
+        mutable std::mt19937 gen = std::mt19937(rd());
+        mutable std::binomial_distribution <IntType> dist;
+
+    public:
+        random_level(IntType max_level, double prob) : dist(max_level - 1, prob) {}
+
+        inline IntType operator()() const { return dist(gen); }
+    };
 }  // namespace skiplist_detail
 
-enum class erase_policy { ALL, SINGLE };
+enum class erase_policy {
+    ALL, SINGLE
+};
 
-template <typename Value,
-          typename Hash = std::hash<Value>,
-          size_t Factor = 2>
+template<typename Value,
+        typename Hash = std::hash <Value>,
+        size_t Factor = 2>
 class skiplist {
-  public:
+public:
     using value_type     = Value;
     using size_type      = size_t;
     using hasher         = Hash;
@@ -63,41 +67,48 @@ class skiplist {
     using iterator       = typename container::iterator;
     using const_iterator = typename container::const_iterator;
     static_assert(std::is_same<iterator, typename node_type::iterator>::value,
-            "STATIC ASSERT FAILED! iterator type differs.");
+                  "STATIC ASSERT FAILED! iterator type differs.");
 
-  private:
-    size_type                                        max_lv_ = 2;
-    double                                           prob_   = 0.5;
+private:
+    size_type max_lv_ = 2;
+    double prob_ = 0.5;
     mutable skiplist_detail::random_level<size_type> rl_;
-    container                                        cont_;
+    container cont_;
 
-  public:
+public:
     skiplist() : rl_(max_lv_, prob_) {
         init_internally();
     }
+
     explicit skiplist(const size_type max_lv, const double prob = 0.5)
-        : max_lv_(max_lv), prob_(prob), rl_(max_lv_, prob_) {
+            : max_lv_(max_lv), prob_(prob), rl_(max_lv_, prob_) {
         init_internally();
     }
-    skiplist(skiplist&& other) = default;
-    skiplist& operator=(skiplist&& other) = default;
+
+    skiplist(skiplist &&other) = default;
+
+    skiplist &operator=(skiplist &&other) = default;
+
     ~skiplist() = default;
-    template <typename InputIt>
+
+    template<typename InputIt>
     skiplist(InputIt first, InputIt last) : skiplist() {
         using value_type_in_iter = typename std::iterator_traits<InputIt>::value_type;
         static_assert(std::is_same<value_type, value_type_in_iter>::value,
-                "STATIC ASSERT FAILED! Value in InputIt should be the same to value_type.");
+                      "STATIC ASSERT FAILED! Value in InputIt should be the same to value_type.");
         for (InputIt i = first; i != last; ++i) {
             insert(*i);
         }
     }
-    skiplist(std::initializer_list<value_type> init) : skiplist(init.begin(), init.end()) {}
 
-  private:  // noncopyable
-    skiplist(const skiplist&) = delete;
-    skiplist& operator=(const skiplist&) = delete;
+    skiplist(std::initializer_list <value_type> init) : skiplist(init.begin(), init.end()) {}
 
-  private:
+private:  // noncopyable
+    skiplist(const skiplist &) = delete;
+
+    skiplist &operator=(const skiplist &) = delete;
+
+private:
     void init_internally() {
         const hash_type tail_key = std::numeric_limits<hash_type>::max();
         node_type tail(tail_key);
@@ -122,11 +133,12 @@ class skiplist {
 
         return;
     }
+
     /**
      * @brief   return a const_iterator points to the last element
      *          such that its hash_key <= target_hash_key
      */
-    const_iterator find_helper(const hash_type& key) const {
+    const_iterator find_helper(const hash_type &key) const {
 #ifdef LIAM_UT_DEBUG_
         std::cerr << "Keys contained in the list: ";
         for (auto node : cont_) {
@@ -160,7 +172,8 @@ class skiplist {
         }
         return iter;
     }
-    std::vector<iterator> find_predecessors(const hash_type& key, const size_type& lv) {
+
+    std::vector <iterator> find_predecessors(const hash_type &key, const size_type &lv) {
 #ifdef LIAM_UT_DEBUG_
         std::cerr << "Keys contained in the list: ";
         for (auto node : cont_) {
@@ -169,7 +182,7 @@ class skiplist {
         std::cerr << '\n';
         std::cerr << "Target key: " << key << '\n';
 #endif
-        std::vector<iterator> res;
+        std::vector <iterator> res;
         res.resize(lv + 1);
         iterator iter = begin();
         for (size_type i = 0; i != max_lv_; ++i) {
@@ -206,31 +219,39 @@ class skiplist {
         return res;
     }
 
-  public:
+public:
     size_type size() const {
         return cont_.size() - 2;
     }
+
     bool empty() const {
         return size() == 0;
     }
+
     iterator begin() {
         return cont_.begin();
     }
+
     const_iterator begin() const {
         return cont_.cbegin();
     }
+
     const_iterator cbegin() const {
         return cont_.cbegin();
     }
+
     iterator end() {
         return cont_.end();
     }
+
     const_iterator end() const {
         return cont_.cend();
     }
+
     const_iterator cend() const {
         return cont_.cend();
     }
+
     void grow(const size_type new_max_lv) {
         if (max_lv_ < new_max_lv) {
 #ifdef LIAM_UT_DEBUG_
@@ -255,25 +276,28 @@ class skiplist {
             return;
         }
     }
+
     void grow() {
         grow(Factor * max_lv_);
     }
+
     size_type capability() const {
         return std::pow(Factor, max_lv_);
     }
 
-  public:
-    const_iterator find(const value_type& target) const {
+public:
+    const_iterator find(const value_type &target) const {
 #ifdef LIAM_UT_DEBUG_
-            std::cerr << "finding [" << target << "]!\n";
+        std::cerr << "finding [" << target << "]!\n";
 #endif
         const hash_type key = hasher()(target);
         const_iterator iter = find_helper(key);
         return (iter->key == key) ? iter : cont_.end();
     }
-    void insert(const value_type& target) {
+
+    void insert(const value_type &target) {
 #ifdef LIAM_UT_DEBUG_
-            std::cerr << "inserting [" << target << "]!\n";
+        std::cerr << "inserting [" << target << "]!\n";
 #endif
         if (size() > static_cast<double>(Factor - 1) / Factor * capability()) {
 #ifdef LIAM_UT_DEBUG_
@@ -282,8 +306,8 @@ class skiplist {
             grow();
         }
         const hash_type key = hasher()(target);
-        const size_type lv  = rl_();
-        std::vector<iterator> predecessors = find_predecessors(key, lv);
+        const size_type lv = rl_();
+        std::vector <iterator> predecessors = find_predecessors(key, lv);
         if (predecessors[0]->forwards[0]->key == key) {  // key already in skiplist
 #ifdef LIAM_UT_DEBUG_
             std::cerr << "key [" << key << "] already in the skiplist, insert directly!\n";
@@ -299,7 +323,7 @@ class skiplist {
             node.values.insert(target);
             iterator inserted = cont_.insert(predecessors[0]->forwards[0], std::move(node));
             for (size_type i = 0; i != lv + 1; ++i) {
-                inserted->forwards[i]        = predecessors[i]->forwards[i];
+                inserted->forwards[i] = predecessors[i]->forwards[i];
                 predecessors[i]->forwards[i] = inserted;
             }
 #ifdef LIAM_UT_DEBUG_
@@ -308,19 +332,20 @@ class skiplist {
             return;
         }
     }
-    void erase(const value_type& target,
-              const erase_policy policy = erase_policy::ALL) {
+
+    void erase(const value_type &target,
+               const erase_policy policy = erase_policy::ALL) {
 #ifdef LIAM_UT_DEBUG_
-            std::cerr << "erasing [" << target << "]!\n";
+        std::cerr << "erasing [" << target << "]!\n";
 #endif
         const hash_type key = hasher()(target);
-        std::vector<iterator> predecessors = find_predecessors(key, max_lv_);
+        std::vector <iterator> predecessors = find_predecessors(key, max_lv_);
         if (predecessors[0]->forwards[0]->key == key) {  // hit
 #ifdef LIAM_UT_DEBUG_
             std::cerr << "key [" << key << "] is in the skiplist!\n";
 #endif
             iterator found = predecessors[0]->forwards[0];
-            for (auto iter = found->values.begin(); iter != found->values.end(); ) {
+            for (auto iter = found->values.begin(); iter != found->values.end();) {
                 if (policy == erase_policy::ALL) {
                     if (*iter == target) {
                         iter = found->values.erase(iter);
@@ -344,7 +369,7 @@ class skiplist {
                 }
                 cont_.erase(found);
 #ifdef LIAM_UT_DEBUG_
-            std::cerr << "empty node removed!\n";
+                std::cerr << "empty node removed!\n";
 #endif
                 return;
             } else {

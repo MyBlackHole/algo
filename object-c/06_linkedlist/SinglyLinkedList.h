@@ -11,19 +11,52 @@
 
 @interface SinglyLinkedList : NSObject
 
-@property ListNode* head;
+@property ListNode *head;
 
-- (ListNode*)nodeWithValue:(int)value;
-- (ListNode*)nodeAtIndex:(NSUInteger)index;
+- (ListNode *)nodeWithValue:(int)value;
+
+- (ListNode *)nodeAtIndex:(NSUInteger)index;
 
 - (void)insertNodeWithValue:(int)value;
-- (void)insertNode:(nonnull ListNode*)node;
-+ (void)insertNodeWithValue:(int)value afterNode:(nonnull ListNode*)node;
-+ (void)insertNode:(nonnull ListNode*)aNode afterNode:(nonnull ListNode*)node;
-- (void)insertNodeWithValue:(int)value beforeNode:(nonnull ListNode*)node;
-- (void)insertNode:(nonnull ListNode*)aNode beforeNode:(nonnull ListNode*)node;
 
-- (void)deleteNode:(nonnull ListNode*)node;
+- (void)insertNode:(nonnull ListNode
+
+*)
+node;
+
++ (void)insertNodeWithValue:(int)value afterNode:(nonnull ListNode
+
+*)
+node;
+
++ (void)insertNode:(nonnull ListNode
+
+*)
+aNode afterNode
+:(
+nonnull ListNode
+*)
+node;
+
+- (void)insertNodeWithValue:(int)value beforeNode:(nonnull ListNode
+
+*)
+node;
+
+- (void)insertNode:(nonnull ListNode
+
+*)
+aNode beforeNode
+:(
+nonnull ListNode
+*)
+node;
+
+- (void)deleteNode:(nonnull ListNode
+
+*)
+node;
+
 - (void)deleteNodesWithValue:(int)value;
 
 @end

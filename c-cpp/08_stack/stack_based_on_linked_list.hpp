@@ -10,20 +10,21 @@
 #include <memory>
 #include "linked_list.h"
 
-template <typename T>
+template<typename T>
 class Stack {
-  public:
+public:
     using value_type = T;
     using node_type  = typename Node<value_type>::ptr_t;
 
-  private:
-    node_type top_   = nullptr;
+private:
+    node_type top_ = nullptr;
 
-  public:
+public:
     bool empty(void) const {
         return nullptr == top_;
     }
-    void push(const value_type& value) {
+
+    void push(const value_type &value) {
         auto node = std::make_shared<node_type>(value);
         if (this->empty()) {
             top_ = node;
@@ -32,6 +33,7 @@ class Stack {
             top_ = node;
         }
     }
+
     value_type top(void) const {
         if (not this->empty()) {
             return top_->data;
@@ -39,6 +41,7 @@ class Stack {
             throw "Fetch data from empty stack!";
         }
     }
+
     void pop(void) {
         if (not this->empty()) {
             top_ = top_->next;

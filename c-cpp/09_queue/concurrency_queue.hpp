@@ -10,48 +10,55 @@
 #include <condition_variable>
 #include <memory>
 
-template <typename T>
+template<typename T>
 class ConcurrencyQueue {
-  public:
+public:
     using value_type      = T;
     using container_type  = std::queue<value_type>;
     using size_type       = typename container_type::size_type;
 
-  private:
+private:
     container_type container_;
     mutable std::mutex mutex_;
     std::condition_variable container_cond_;
 
-  public:
+public:
     ConcurrencyQueue() = default;
-    ConcurrencyQueue(const ConcurrencyQueue&) = default;
-    ConcurrencyQueue(ConcurrencyQueue&&) = default;
-    ConcurrencyQueue& operator=(const ConcurrencyQueue&) = default;
-    ConcurrencyQueue& operator=(ConcurrencyQueue&&) = default;
 
-  private:
+    ConcurrencyQueue(const ConcurrencyQueue &) = default;
+
+    ConcurrencyQueue(ConcurrencyQueue &&) = default;
+
+    ConcurrencyQueue &operator=(const ConcurrencyQueue &) = default;
+
+    ConcurrencyQueue &operator=(ConcurrencyQueue &&) = default;
+
+private:
     bool empty_() const { return container_.empty(); }
 
-  public:
+public:
     bool empty() const {
-        std::lock_guard<std::mutex> lg(mutex_);
+        std::lock_guard <std::mutex> lg(mutex_);
         return container_.empty();
     }
+
     void push(value_type item) {
-        std::lock_guard<std::mutex> lg(mutex_);
+        std::lock_guard <std::mutex> lg(mutex_);
         container_.push(std::move(item));
         container_cond_.notify_one();
     }
-    void wait_and_pop(value_type& out) {
-        std::unique_lock<std::mutex> lk(mutex_);
+
+    void wait_and_pop(value_type &out) {
+        std::unique_lock <std::mutex> lk(mutex_);
         while (empty_()) {
             container_cond_.wait(lk)
         }
         out = std::move(container_.front());
         container_.pop();
     }
-    std::shared_ptr<value_type> wait_and_pop() {
-        std::unique_lock<std::mutex> lk(mutex_);
+
+    std::shared_ptr <value_type> wait_and_pop() {
+        std::unique_lock <std::mutex> lk(mutex_);
         while (empty_()) {
             container_cond_.wait(lk)
         }
@@ -59,8 +66,9 @@ class ConcurrencyQueue {
         container_.pop();
         return res;
     }
-    bool try_pop(value_type& out) {
-        std::lock_guard<std::mutex> lg(mutex_);
+
+    bool try_pop(value_type &out) {
+        std::lock_guard <std::mutex> lg(mutex_);
         if (empty_()) {
             return false;
         } else {
@@ -69,8 +77,9 @@ class ConcurrencyQueue {
             return true;
         }
     }
-    std::shared_ptr<value_type> try_pop() {
-        std::lock_guard<std::mutex> lg(mutex_);
+
+    std::shared_ptr <value_type> try_pop() {
+        std::lock_guard <std::mutex> lg(mutex_);
         if (empty_()) {
             return nullptr;
         } else {

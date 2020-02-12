@@ -6,6 +6,7 @@
 
 from typing import List
 
+
 def kmp(s: int, pattern: int) -> int:
     m = len(pattern)
     partial_match_table = _get_partial_match_table(pattern)
@@ -38,7 +39,7 @@ def _get_partial_match_table(pattern: int) -> List[int]:
     # suffix of P[0]P[1].
     # We also add a π[0] == -1 for easier handling of boundary
     # condition.
-    
+
     m = len(pattern)
     π = [0] * (m + 1)
     π[0] = k = -1  # We use k here to represent πᵏ(i)
@@ -51,7 +52,6 @@ def _get_partial_match_table(pattern: int) -> List[int]:
 
 
 if __name__ == "__main__":
-
     s = "abc abcdab abcdabcdabde"
     pattern = "bcdabd"
     print(kmp(s, pattern), s.find(pattern))

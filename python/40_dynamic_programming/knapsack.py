@@ -4,6 +4,7 @@
 
 from typing import List
 
+
 def knapsack01(weights: List[int], values: List[int], capacity: int) -> int:
     # Denote the state as (i, c), where i is the stage number,
     # and c is the capacity available. Denote f(i, c) to be the
@@ -20,7 +21,7 @@ def knapsack01(weights: List[int], values: List[int], capacity: int) -> int:
 
     prev = [0] * (capacity + 1)
     for w, v in zip(weights, values):
-        prev = [c >= w and max(prev[c], prev[c-w] + v) for c in range(capacity + 1)]
+        prev = [c >= w and max(prev[c], prev[c - w] + v) for c in range(capacity + 1)]
     return prev[-1]
 
 

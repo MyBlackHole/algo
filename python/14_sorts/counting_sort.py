@@ -7,9 +7,10 @@
 from typing import List
 import itertools
 
+
 def counting_sort(a: List[int]):
     if len(a) <= 1: return
-    
+
     # a中有counts[i]个数不大于i
     counts = [0] * (max(a) + 1)
     for num in a:
@@ -22,7 +23,7 @@ def counting_sort(a: List[int]):
         index = counts[num] - 1
         a_sorted[index] = num
         counts[num] -= 1
-    
+
     a[:] = a_sorted
 
 

@@ -50,7 +50,7 @@ function sortBuckets(buckets) {
 
 // 插入排序
 function insertionSort(array) {
-    const { length } = array
+    const {length} = array
     if (length <= 1) return
 
     for (let i = 1; i < length; i++) {

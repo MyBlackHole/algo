@@ -2,6 +2,7 @@
     Author: Wenru Dong
 """
 
+
 def levenshtein_dp(s: str, t: str) -> int:
     m, n = len(s), len(t)
     table = [[0] * (n) for _ in range(m)]

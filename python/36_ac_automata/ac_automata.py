@@ -7,6 +7,7 @@
 from collections import deque
 from typing import List
 
+
 class ACNode:
     def __init__(self, data: str):
         self._data = data
@@ -14,7 +15,7 @@ class ACNode:
         self._is_ending_char = False
         self._length = -1
         self._suffix = None
-    
+
 
 class ACAutomata:
     def __init__(self):
@@ -72,9 +73,8 @@ class ACAutomata:
 
 
 if __name__ == "__main__":
-
     patterns = ["at", "art", "oars", "soar"]
     ac = ACAutomata()
     ac.insert(patterns)
-    
+
     ac.match("soarsoars")

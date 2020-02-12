@@ -16,9 +16,9 @@
 
 #include "linked_list.h"
 
-template <typename T, typename UnaryFunc>
+template<typename T, typename UnaryFunc>
 void traverse(typename Node<T>::ptr_t head, UnaryFunc do_traverse) {
-    auto sentry  = std::make_shared<Node<T>>();
+    auto sentry = std::make_shared<Node<T>>();
     sentry->next = head;
     decltype(sentry) work = sentry;
     while (work = work->next) {
@@ -26,7 +26,7 @@ void traverse(typename Node<T>::ptr_t head, UnaryFunc do_traverse) {
     }
 }
 
-template <typename T>
+template<typename T>
 typename Node<T>::ptr_t reverse(typename Node<T>::ptr_t head) {
     if (nullptr == head or nullptr == head->next) {
         return head;
@@ -42,7 +42,7 @@ typename Node<T>::ptr_t reverse(typename Node<T>::ptr_t head) {
     return curr;
 }
 
-template <typename T>
+template<typename T>
 bool check_circle(typename Node<T>::ptr_t head) {
     if (nullptr == head or nullptr == head->next) {
         return false;
@@ -58,7 +58,7 @@ bool check_circle(typename Node<T>::ptr_t head) {
     return false;
 }
 
-template <typename T>
+template<typename T>
 typename Node<T>::ptr_t merge_two_sorted_lists(typename Node<T>::ptr_t lhs,
                                                typename Node<T>::ptr_t rhs) {
     if (nullptr == lhs) { return rhs; }
@@ -95,9 +95,9 @@ typename Node<T>::ptr_t merge_two_sorted_lists(typename Node<T>::ptr_t lhs,
     return head;
 }
 
-template <typename T>
+template<typename T>
 typename Node<T>::ptr_t deleth_last_Kth(typename Node<T>::ptr_t head,
-                                                         size_t n) {
+                                        size_t n) {
     decltype(head) sentry = std::make_shared<Node<T>>();
     sentry->next = head;
     decltype(head) prev = sentry, curr = sentry->next, fast = sentry->next;
@@ -117,7 +117,7 @@ typename Node<T>::ptr_t deleth_last_Kth(typename Node<T>::ptr_t head,
     return sentry->next;
 }
 
-template <typename T>
+template<typename T>
 typename Node<T>::ptr_t find_middle_node(typename Node<T>::ptr_t head) {
     if (nullptr == head or nullptr == head->next) {
         return head;

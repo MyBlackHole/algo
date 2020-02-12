@@ -9,62 +9,62 @@
  * 排序的枚举类型
  */
 enum SortType {
-  BubbleSort,
-  InsertSort
+    BubbleSort,
+    InsertSort
 }
 
 interface SortAlgo {
-  sort(array: number[]): void
+    sort(array: number[]): void
 }
 
 class BubbleSort implements SortAlgo {
-  sort(array: number[]) {
-    for (let i = 0; i < array.length; i++) {
-      let flag = false
-      for (let j = 0; j < array.length; j++) {
-        if (array[j] > array[j + 1]) {
-          const temp = array[j]
-          array[j] = array[j + 1]
-          array[j + 1] = temp
-          flag = true
+    sort(array: number[]) {
+        for (let i = 0; i < array.length; i++) {
+            let flag = false
+            for (let j = 0; j < array.length; j++) {
+                if (array[j] > array[j + 1]) {
+                    const temp = array[j]
+                    array[j] = array[j + 1]
+                    array[j + 1] = temp
+                    flag = true
+                }
+            }
+            if (!flag) {
+                break
+            }
         }
-      }
-      if (!flag) {
-        break
-      }
     }
-  }
 }
 
 class InsertSort implements SortAlgo {
-  sort(array: number[]) {
-    for (let i = 1; i < array.length; i++) {
-      let j = i - 1
-      const temp = array[i]
-      for (; j >= 0; j--) {
-        if (array[j] > array[j + 1]) {
-          array[j + 1] = array[j]
-        } else {
-          // 这个说明之前的已经排好了，没必要继续比较
-          break
+    sort(array: number[]) {
+        for (let i = 1; i < array.length; i++) {
+            let j = i - 1
+            const temp = array[i]
+            for (; j >= 0; j--) {
+                if (array[j] > array[j + 1]) {
+                    array[j + 1] = array[j]
+                } else {
+                    // 这个说明之前的已经排好了，没必要继续比较
+                    break
+                }
+            }
+            array[j + 1] = temp
         }
-      }
-      array[j + 1] = temp
     }
-  }
 }
 
 class SortFactory {
-  static getSortAlgo(type: SortType): SortAlgo {
-    switch (type) {
-      case SortType.BubbleSort:
-        return new BubbleSort()
-      case SortType.InsertSort:
-        return new InsertSort()
-      default:
-        throw new Error('unknown sort algorithm type')
+    static getSortAlgo(type: SortType): SortAlgo {
+        switch (type) {
+            case SortType.BubbleSort:
+                return new BubbleSort()
+            case SortType.InsertSort:
+                return new InsertSort()
+            default:
+                throw new Error('unknown sort algorithm type')
+        }
     }
-  }
 }
 
 const insertSort = SortFactory.getSortAlgo(SortType.InsertSort)

@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/black/CLionProjects/algo/c-cpp/18_hashtable/hashtable.c
+stdio.h
+-
+stdlib.h
+-
+stdbool.h
+-
+string.h
+-
+time.h
+-
+

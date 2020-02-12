@@ -5,11 +5,12 @@
 from collections import deque
 from itertools import filterfalse
 
+
 class Graph:
     def __init__(self, num_vertices: int):
         self._num_vertices = num_vertices
         self._adjacency = [[] for _ in range(num_vertices)]
-    
+
     def add_edge(self, s: int, t: int) -> None:
         self._adjacency[s].append(t)
 
@@ -44,17 +45,16 @@ class Graph:
                         visited[v] = True
                         dfs(v)
             print(f"{vertex} -> ", end="")
-        
+
         for v in range(self._num_vertices):
             if not visited[v]:
                 visited[v] = True
                 dfs(v)
-        
+
         print("\b\b\b   ")
 
 
 if __name__ == "__main__":
-
     dag = Graph(4)
     dag.add_edge(1, 0)
     dag.add_edge(2, 1)

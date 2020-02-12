@@ -7,22 +7,25 @@
 from dataclasses import dataclass
 from queue import PriorityQueue
 
+
 @dataclass
 class Edge:
     start_id: int
     end_id: int
     weight: int
 
+
 @dataclass(order=True)
 class Vertex:
     distance_to_start = float("inf")
     vertex_id: int
 
+
 class Graph:
     def __init__(self, num_vertices: int):
         self._num_vertices = num_vertices
         self._adjacency = [[] for _ in range(num_vertices)]
-    
+
     def add_edge(self, from_vertex: int, to_vertex: int, weight: int) -> None:
         self._adjacency[from_vertex].append(Edge(from_vertex, to_vertex, weight))
 
@@ -46,7 +49,7 @@ class Graph:
                     if not visited[next_vertex.vertex_id]:
                         q.put(next_vertex)
                         visited[next_vertex.vertex_id] = True
-            
+
         path = lambda x: path(predecessor[x]) + [str(x)] if from_vertex != x else [str(from_vertex)]
         print("->".join(path(to_vertex)))
 

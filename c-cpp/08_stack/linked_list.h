@@ -9,13 +9,20 @@
 
 #include <memory>
 
-template <typename T>
+template <
+typename T
+>
+
 struct Node {
-    using ptr_t = std::shared_ptr<Node<T>>;
-    T     data;
+    using ptr_t = std::shared_ptr < Node < T >>;
+    T data;
     ptr_t next;
 
-    Node(T data_) : data(data_), next(nullptr) {}
+    Node(T
+    data_) :
+
+    data (data_), next(nullptr) {}
+
     Node() : next(nullptr) {}
 };
 

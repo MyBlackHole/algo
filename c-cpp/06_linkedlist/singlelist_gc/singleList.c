@@ -2,12 +2,10 @@
 
 #include <string.h>
 
-linkedList * listCreate()
-{
+linkedList *listCreate() {
     linkedList *list = NULL;
     list = malloc(sizeof(*list));
-    if (NULL == list)
-    {
+    if (NULL == list) {
         return NULL;
     }
 
@@ -21,11 +19,9 @@ linkedList * listCreate()
     return list;
 }
 
-// 释放
-void listRelease(linkedList *list)
-{
-    if (NULL == list)
-    {
+// 閲婃斁
+void listRelease(linkedList *list) {
+    if (NULL == list) {
         return;
     }
 
@@ -35,23 +31,17 @@ void listRelease(linkedList *list)
     list = NULL;
 }
 
-void listEmpty(linkedList *list)
-{
-    if (NULL == list)
-    {
+void listEmpty(linkedList *list) {
+    if (NULL == list) {
         return;
     }
 
-    while (NULL != list->head)
-    {
+    while (NULL != list->head) {
         listNode *pNode = list->head;
         list->head = pNode->next;
-        if (NULL != list->free)
-        {
+        if (NULL != list->free) {
             list->free(pNode->value);
-        }
-        else
-        {
+        } else {
             free(pNode->value);
         }
 
@@ -61,17 +51,14 @@ void listEmpty(linkedList *list)
     }
 }
 
-linkedList * listAddNodeHead(linkedList *list, void * value)
-{
-    if (NULL == list || NULL == value)
-    {
+linkedList *listAddNodeHead(linkedList *list, void *value) {
+    if (NULL == list || NULL == value) {
         return list;
     }
 
     listNode *node = NULL;
     node = malloc(sizeof(*node));
-    if (NULL == node)
-    {
+    if (NULL == node) {
         return list;
     }
 
@@ -83,17 +70,14 @@ linkedList * listAddNodeHead(linkedList *list, void * value)
     return list;
 }
 
-linkedList * listAddNodeTail(linkedList *list, void *value)
-{
-    if (NULL == list || NULL == value)
-    {
+linkedList *listAddNodeTail(linkedList *list, void *value) {
+    if (NULL == list || NULL == value) {
         return list;
     }
 
     listNode *node = NULL;
     node = malloc(sizeof(*node));
-    if (NULL == node)
-    {
+    if (NULL == node) {
         return list;
     }
 
@@ -101,16 +85,12 @@ linkedList * listAddNodeTail(linkedList *list, void *value)
     node->next = NULL;
 
     if (NULL == list->head
-        && list->len == 0)
-    {
+        && list->len == 0) {
         list->head = node;
-    }
-    else
-    {
+    } else {
         listNode *tail = list->head;
         listNode *pre = list->head;
-        while (NULL != tail)
-        {
+        while (NULL != tail) {
             pre = tail;
             tail = tail->next;
         }
@@ -122,36 +102,28 @@ linkedList * listAddNodeTail(linkedList *list, void *value)
     return list;
 }
 
-linkedList * listInsertNode(linkedList *list, listNode *old_node, void *value, bool after)
-{
-    if (NULL == list || NULL == old_node)
-    {
+linkedList *listInsertNode(linkedList *list, listNode *old_node, void *value, bool after) {
+    if (NULL == list || NULL == old_node) {
         return list;
     }
 
     listNode *pNode = NULL;
     pNode = malloc(sizeof(*pNode));
-    if (NULL == pNode)
-    {
+    if (NULL == pNode) {
         return list;
     }
 
     pNode->value = value;
-    if (after)
-    {
+    if (after) {
         pNode->next = old_node->next;
         old_node->next = pNode;
-    }
-    else
-    {
+    } else {
         listNode *pre = list->head;
-        while (pre->next != old_node)
-        {
+        while (pre->next != old_node) {
             pre = pre->next;
         }
 
-        if (NULL != pre)
-        {
+        if (NULL != pre) {
             pre->next = pNode;
             pNode->next = old_node;
         }
@@ -161,25 +133,21 @@ linkedList * listInsertNode(linkedList *list, listNode *old_node, void *value, b
     return list;
 }
 
-// 没设置释放函数时不做释放处理
-void listDelNode(linkedList *list, listNode *node)
-{
-    if (NULL == list || NULL == node)
-    {
+// 娌¤缃噴鏀惧嚱鏁版椂涓嶅仛閲婃斁澶勭悊
+void listDelNode(linkedList *list, listNode *node) {
+    if (NULL == list || NULL == node) {
         return;
     }
 
     listNode *pre = list->head;
     listNode *cur = list->head;
-    while (NULL != cur && cur != node)
-    {
+    while (NULL != cur && cur != node) {
         pre = cur;
         cur = cur->next;
     }
 
-    // 不在该链表中
-    if (NULL == pre)
-    {
+    // 涓嶅湪璇ラ摼琛ㄤ腑
+    if (NULL == pre) {
         return;
     }
 
@@ -187,35 +155,26 @@ void listDelNode(linkedList *list, listNode *node)
     node->next = NULL;
     --list->len;
 
-    if (NULL != list->free)
-    {
+    if (NULL != list->free) {
         list->free(node->value);
         free(node);
         node = NULL;
     }
 }
 
-listNode * listSearchKey(linkedList *list, void *key)
-{
-    if (NULL == list)
-    {
+listNode *listSearchKey(linkedList *list, void *key) {
+    if (NULL == list) {
         return NULL;
     }
 
     listNode *node = list->head;
-    while (NULL != node)
-    {
-        if (NULL != list->match)
-        {
-            if (list->match(key, node->value) == 0)
-            {
+    while (NULL != node) {
+        if (NULL != list->match) {
+            if (list->match(key, node->value) == 0) {
                 return node;
             }
-        }
-        else
-        {
-            if (key == node->value)
-            {
+        } else {
+            if (key == node->value) {
                 return node;
             }
         }
@@ -226,40 +185,33 @@ listNode * listSearchKey(linkedList *list, void *key)
     return NULL;
 }
 
-listNode * listIndex(linkedList *list, long index)
-{
-    if (NULL == list)
-    {
+listNode *listIndex(linkedList *list, long index) {
+    if (NULL == list) {
         return NULL;
     }
 
     if (index <= 0
-        || index > list->len)
-    {
+        || index > list->len) {
         return NULL;
     }
 
     listNode *pNode = list->head;
-    for (long i = 0; i < index; ++i)
-    {
+    for (long i = 0; i < index; ++i) {
         pNode = pNode->next;
     }
 
     return pNode;
 }
 
-linkedList* listRewind(linkedList *list)
-{
-    if (NULL == list)
-    {
+linkedList *listRewind(linkedList *list) {
+    if (NULL == list) {
         return NULL;
     }
 
     listNode *head = list->head;
     listNode *pre = NULL;
     listNode *next = NULL;
-    while (NULL != head)
-    {
+    while (NULL != head) {
         next = head->next;
         head->next = pre;
         pre = head;
@@ -270,10 +222,8 @@ linkedList* listRewind(linkedList *list)
     return list;
 }
 
-size_t listLength(linkedList *list)
-{
-    if (NULL == list)
-    {
+size_t listLength(linkedList *list) {
+    if (NULL == list) {
         return 0;
     }
 

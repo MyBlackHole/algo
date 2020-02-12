@@ -7,8 +7,10 @@
 from typing import List, Optional, Generator, IO
 from collections import deque
 
+
 class Graph:
     """Undirected graph."""
+
     def __init__(self, num_vertices: int):
         self._num_vertices = num_vertices
         self._adjacency = [[] for _ in range(num_vertices)]
@@ -64,13 +66,12 @@ class Graph:
                 if not visited[neighbour]:
                     prev[neighbour] = from_vertex
                     _dfs(neighbour)
-        
+
         _dfs(s)
         print("->".join(self._generate_path(s, t, prev)))
 
 
 if __name__ == "__main__":
-    
     graph = Graph(8)
 
     graph.add_edge(0, 1)

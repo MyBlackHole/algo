@@ -25,17 +25,17 @@ def bag(capacity: int, cur_weight: int, items_info: List, pick_idx: int):
             picks_with_max_value = picks.copy()
     else:
         item_weight = items_info[pick_idx][0]
-        if cur_weight + item_weight <= capacity:    # 选
+        if cur_weight + item_weight <= capacity:  # 选
             picks[pick_idx] = 1
             bag(capacity, cur_weight + item_weight, items_info, pick_idx + 1)
 
-        picks[pick_idx] = 0                         # 不选
+        picks[pick_idx] = 0  # 不选
         bag(capacity, cur_weight, items_info, pick_idx + 1)
 
 
 def get_value(items_info: List, pick_items: List):
     values = [_[1] for _ in items_info]
-    return sum([a*b for a, b in zip(values, pick_items)])
+    return sum([a * b for a, b in zip(values, pick_items)])
 
 
 if __name__ == '__main__':

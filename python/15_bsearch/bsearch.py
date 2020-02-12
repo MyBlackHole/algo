@@ -4,6 +4,7 @@
 
 from typing import List
 
+
 def bsearch(nums: List[int], target: int) -> int:
     """Binary search of a target in a sorted array
     without duplicates. If such a target does not exist,
@@ -18,5 +19,5 @@ def bsearch(nums: List[int], target: int) -> int:
             low = mid + 1
         else:
             high = mid - 1
-    
+
     return -1

@@ -8,6 +8,7 @@ from typing import List, Tuple
 
 SIZE = 256
 
+
 def _generate_bad_character_table(pattern: str) -> List[int]:
     bc = [-1] * SIZE
     for i, char in enumerate(pattern):
@@ -41,7 +42,7 @@ def _move_by_good_suffix(bad_character_index: int, suffix: List[int], prefix: Li
     k = len(suffix) - 1 - bad_character_index
     if suffix[k] != -1: return bad_character_index - suffix[k] + 1
     # Test from k - 1
-    for r, can_match_prefix in enumerate(reversed(prefix[:k]), bad_character_index + 2): 
+    for r, can_match_prefix in enumerate(reversed(prefix[:k]), bad_character_index + 2):
         if can_match_prefix: return r
     return len(suffix)
 
@@ -53,11 +54,11 @@ def bm(s: str, pattern: str) -> int:
     i = 0
     while i <= n - m:
         j = m - 1  # bad character index in pattern
-        while j >= 0: 
+        while j >= 0:
             if s[i + j] != pattern[j]: break
             j -= 1
         if j < 0: return i
-        
+
         x = j - bc[ord(s[i + j])]
         y = 0
         if j < m - 1:
@@ -67,7 +68,6 @@ def bm(s: str, pattern: str) -> int:
 
 
 if __name__ == "__main__":
-
     s = "Here is a simple example"
     pattern = "example"
     print(bm(s, pattern))

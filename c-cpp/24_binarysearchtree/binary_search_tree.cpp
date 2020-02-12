@@ -13,28 +13,24 @@ using namespace std;
 
 typedef int DataType;
 
-struct treeNode
-{
+struct treeNode {
     DataType data;
     treeNode *left = nullptr;
     treeNode *right = nullptr;
 };
 
-class binarySearchTree
-{
+class binarySearchTree {
 private:
     treeNode *root;
     int num; // tree node numbers
 public:
-    binarySearchTree() : num(0)
-    {
+    binarySearchTree() : num(0) {
         root = new treeNode;
         root->left = nullptr;
         root->right = nullptr;
     }
 
-    bool find(DataType it, treeNode *root)
-    {
+    bool find(DataType it, treeNode *root) {
         if (nullptr == root)
             return false;
         if (it == root->data) {
@@ -46,8 +42,7 @@ public:
         }
     }
 
-    bool find_data(DataType it)
-    {
+    bool find_data(DataType it) {
         return find(it, root);
         /*
 		treeNode* p = root;
@@ -61,8 +56,7 @@ public:
 		*/
     }
 
-    DataType get_max()
-    {
+    DataType get_max() {
         if (nullptr == root)
             return NULL;
         treeNode *tmp = root;
@@ -72,8 +66,7 @@ public:
         return tmp->data;
     }
 
-    DataType get_min()
-    {
+    DataType get_min() {
         if (nullptr == root)
             return NULL;
         treeNode *tmp = root;
@@ -113,8 +106,7 @@ public:
         }
     }
 
-    DataType get_prenode(DataType it)
-    {
+    DataType get_prenode(DataType it) {
         if (nullptr == root)
             return NULL;
         if (it == root->data)
@@ -137,8 +129,7 @@ public:
         return ((nullptr == p) ? NULL : pp->data);
     }
 
-    DataType get_postnode(DataType it)
-    {
+    DataType get_postnode(DataType it) {
         if (nullptr == root)
             return -1;
         treeNode *p = root;
@@ -162,8 +153,7 @@ public:
         }
     }
 
-    void mid_order(treeNode *rt)
-    {
+    void mid_order(treeNode *rt) {
         if (nullptr == rt)
             return;
         mid_order(rt->left);
@@ -171,15 +161,13 @@ public:
         mid_order(rt->right);
     }
 
-    void order()
-    {
+    void order() {
         if (nullptr == root)
             return;
         return mid_order(root);
     }
 
-    int get_high(treeNode *rt)
-    {
+    int get_high(treeNode *rt) {
         int lhigh = 0;
         int rhigh = 0;
         if (nullptr == rt)
@@ -189,15 +177,13 @@ public:
         return ((lhigh > rhigh) ? (lhigh + 1) : (rhigh + 1));
     }
 
-    int high()
-    {
+    int high() {
         if (nullptr == root)
             return 1;
         return get_high(root);
     }
 
-    void delet(DataType it)
-    {
+    void delet(DataType it) {
         if (NULL == root)
             return;
         treeNode *p = root;
@@ -246,8 +232,7 @@ public:
     }
 };
 
-int main()
-{
+int main() {
     binarySearchTree my_tree;
 
     // must input in the order of layers

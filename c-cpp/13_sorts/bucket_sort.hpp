@@ -10,16 +10,16 @@
 #include <algorithm>
 #include <vector>
 
-template <size_t BucketSize,
-          typename IterT,
-          typename T = typename std::iterator_traits<IterT>::value_type,
-          typename Compare = std::less<T>>
+template<size_t BucketSize,
+        typename IterT,
+        typename T = typename std::iterator_traits<IterT>::value_type,
+        typename Compare = std::less <T>>
 void bucket_sort(IterT first, IterT last, Compare comp = Compare()) {
     const T min = *std::min_element(first, last), max = *std::max_element(first, last);
     const T range = max + 1 - min;
     const size_t bucket_num = (range - 1) / BucketSize + 1;
 
-    std::vector<std::vector<T>> buckets(bucket_num);
+    std::vector <std::vector<T>> buckets(bucket_num);
     for (auto b : buckets) {
         b.reserve(2 * BucketSize);
     }

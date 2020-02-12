@@ -41,6 +41,7 @@ class RedBlackTree:
     2. 红黑树（二）：删除
     https://zhuanlan.zhihu.com/p/25402654
     """
+
     def __init__(self, val_list=None):
         self.root = None
         self.black_leaf = TreeNode(color='b')  # 共用的黑色叶子节点
@@ -118,27 +119,27 @@ class RedBlackTree:
             u = self.bro(p)
             g = self.parent(p)
 
-            if not u.is_black():        # case 1
-                p.set_black()           # case 1
-                u.set_black()           # case 1
-                g.set_red()             # case 1
-                n = g                   # case 1
+            if not u.is_black():  # case 1
+                p.set_black()  # case 1
+                u.set_black()  # case 1
+                g.set_red()  # case 1
+                n = g  # case 1
                 continue
 
-            if p == g.left:     # p为左结点
-                if n == p.right:        # case 2
-                    self.rotate_l(p)    # case 2
-                    n, p = p, n         # case 2
-                p.set_black()           # case 3
-                g.set_red()             # case 3
-                self.rotate_r(g)        # case 3
-            else:               # p为右节点
-                if n == p.left:         # case 2
-                    self.rotate_r(p)    # case 2
-                    n, p = p, n         # case 2
-                p.set_black()           # case 3
-                g.set_red()             # case 3
-                self.rotate_l(g)        # case 3
+            if p == g.left:  # p为左结点
+                if n == p.right:  # case 2
+                    self.rotate_l(p)  # case 2
+                    n, p = p, n  # case 2
+                p.set_black()  # case 3
+                g.set_red()  # case 3
+                self.rotate_r(g)  # case 3
+            else:  # p为右节点
+                if n == p.left:  # case 2
+                    self.rotate_r(p)  # case 2
+                    n, p = p, n  # case 2
+                p.set_black()  # case 3
+                g.set_red()  # case 3
+                self.rotate_l(g)  # case 3
 
         # 根节点强制置黑，有两种情况根节点是红色：
         # 1. 新插入时是红色
@@ -207,56 +208,56 @@ class RedBlackTree:
             # 左右节点对称
             if p.left == n:
                 if not b.is_black():
-                    b.set_black()                   # case 1
-                    p.set_red()                     # case 1
-                    self.rotate_l(p)                # case 1
+                    b.set_black()  # case 1
+                    p.set_red()  # case 1
+                    self.rotate_l(p)  # case 1
                     # new bro after rotate
-                    b = self.bro(n)                 # case 1
+                    b = self.bro(n)  # case 1
 
                 if b.left.is_black() and b.right.is_black():
-                    b.set_red()                     # case 2
-                    n = p                           # case 2
+                    b.set_red()  # case 2
+                    n = p  # case 2
                 else:
                     if b.right.is_black():
-                        b.left.set_black()          # case 3
-                        b.set_red()                 # case 3
-                        self.rotate_r(b)            # case 3
+                        b.left.set_black()  # case 3
+                        b.set_red()  # case 3
+                        self.rotate_r(b)  # case 3
                         # new bro after rotate
-                        b = self.bro(n)             # case 3
+                        b = self.bro(n)  # case 3
 
                     # 注意，因为p可能是红或黑，所以不能直接赋值颜色，只能copy
-                    b.color = p.color               # case 4
-                    p.set_black()                   # case 4
-                    b.right.set_black()             # case 4
-                    self.rotate_l(p)                # case 4
+                    b.color = p.color  # case 4
+                    p.set_black()  # case 4
+                    b.right.set_black()  # case 4
+                    self.rotate_l(p)  # case 4
                     # trick, 调整结束跳出while
-                    n = self.root                   # case 4
+                    n = self.root  # case 4
             else:
                 if not b.is_black():
-                    b.set_black()                   # case 1
-                    p.set_red()                     # case 1
-                    self.rotate_r(p)                # case 1
+                    b.set_black()  # case 1
+                    p.set_red()  # case 1
+                    self.rotate_r(p)  # case 1
                     # new bro after rotate
-                    b = self.bro(n)                 # case 1
+                    b = self.bro(n)  # case 1
 
                 if b.left.is_black() and b.right.is_black():
-                    b.set_red()                     # case 2
-                    n = p                           # case 2
+                    b.set_red()  # case 2
+                    n = p  # case 2
                 else:
                     if b.left.is_black():
-                        b.right.set_black()         # case 3
-                        b.set_red()                 # case 3
-                        self.rotate_l(b)            # case 3
+                        b.right.set_black()  # case 3
+                        b.set_red()  # case 3
+                        self.rotate_l(b)  # case 3
                         # new bro after rotate
-                        b = self.bro(n)             # case 3
+                        b = self.bro(n)  # case 3
 
                     # 注意，因为p可能是红或黑，所以不能直接赋值颜色，只能copy
-                    b.color = p.color               # case 4
-                    p.set_black()                   # case 4
-                    b.left.set_black()              # case 4
-                    self.rotate_r(p)                # case 4
+                    b.color = p.color  # case 4
+                    p.set_black()  # case 4
+                    b.left.set_black()  # case 4
+                    self.rotate_r(p)  # case 4
                     # trick, 调整结束跳出while
-                    n = self.root                   # case 4
+                    n = self.root  # case 4
 
         # 将n设为黑色，从上面while循环跳出，情况有两种
         # 1. n是根节点，直接无视附加的黑色
@@ -275,7 +276,7 @@ class RedBlackTree:
                 self.root = n2
                 n2.parent = None
             else:
-                self.root = None    # 只有删除根节点时会进来
+                self.root = None  # 只有删除根节点时会进来
         else:
             p = self.parent(n1)
             if p.left == n1:

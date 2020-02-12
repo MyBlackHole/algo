@@ -1,6 +1,6 @@
 /**
  * 使用前后栈实现浏览器的前进后退。
- * 
+ *
  * Author nameczz
  */
 const stack = require('./StackBasedOnLinkedList')
@@ -10,12 +10,14 @@ class SampleBrowser {
         this.normalStack = new stack.CreatedStack()
         this.backStack = new stack.CreatedStack()
     }
+
     // 正常浏览页面
     pushNormal(name) {
         this.normalStack.push(name)
         this.backStack.clear()
         this.displayAllStack()
     }
+
     // 后退
     back() {
         const value = this.normalStack.pop()
@@ -26,6 +28,7 @@ class SampleBrowser {
             console.log('无法后退')
         }
     }
+
     // 前进
     front() {
         const value = this.backStack.pop()
@@ -36,6 +39,7 @@ class SampleBrowser {
             console.log('无法前进')
         }
     }
+
     // 打印栈内数据
     displayAllStack() {
         console.log('---后退页面---')
@@ -44,6 +48,7 @@ class SampleBrowser {
         this.normalStack.display()
     }
 }
+
 // Test
 const browser = new SampleBrowser()
 browser.pushNormal('www.google.com')

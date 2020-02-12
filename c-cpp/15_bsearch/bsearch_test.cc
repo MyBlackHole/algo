@@ -7,8 +7,8 @@
 
 #include "bsearch.hpp"
 
-template <typename VecT, typename T = typename VecT::value_type>
-void test_bsearch(const VecT& test, T target) {
+template<typename VecT, typename T = typename VecT::value_type>
+void test_bsearch(const VecT &test, T target) {
     auto it = bsearch(test.begin(), test.end(), target);
     std::cout << std::distance(test.begin(), it) << std::endl;
 }

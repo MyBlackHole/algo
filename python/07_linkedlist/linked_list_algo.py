@@ -12,10 +12,11 @@ from typing import Optional
 
 
 class Node:
-    
+
     def __init__(self, data: int, next=None):
         self.data = data
         self._next = next
+
 
 # Reverse singly-linked list
 # 单链表反转
@@ -27,6 +28,7 @@ def reverse(head: Node) -> Optional[Node]:
         reversed_head, reversed_head._next, current = current, reversed_head, current._next
     return reversed_head
 
+
 # Detect cycle in a list
 # 检测环
 def has_cycle(head: Node) -> bool:
@@ -37,6 +39,7 @@ def has_cycle(head: Node) -> bool:
         if slow == fast:
             return True
     return False
+
 
 # Merge two sorted linked list
 # 有序链表合并
@@ -57,6 +60,7 @@ def merge_sorted_list(l1: Node, l2: Node) -> Optional[Node]:
         return fake_head._next
     return l1 or l2
 
+
 # Remove nth node from the end
 # 删除倒数第n个节点。假设n大于0
 def remove_nth_from_end(head: Node, n: int) -> Optional[Node]:
@@ -69,12 +73,13 @@ def remove_nth_from_end(head: Node, n: int) -> Optional[Node]:
         return head
     if not fast and count == n:
         return head._next
-    
+
     slow = head
     while fast._next:
         fast, slow = fast._next, slow._next
     slow._next = slow._next._next
     return head
+
 
 def find_middle_node(head: Node) -> Optional[Node]:
     slow, fast = head, head
@@ -82,6 +87,7 @@ def find_middle_node(head: Node) -> Optional[Node]:
     while fast and fast._next:
         slow, fast = slow._next, fast._next._next
     return slow
+
 
 def print_all(head: Node):
     nums = []

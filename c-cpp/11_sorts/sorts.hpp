@@ -8,8 +8,8 @@
 #include <iterator>
 #include <functional>
 
-template <typename BidirIt,
-          typename BinaryPred = std::less<typename std::iterator_traits<BidirIt>::value_type>>
+template<typename BidirIt,
+        typename BinaryPred = std::less<typename std::iterator_traits<BidirIt>::value_type>>
 void bubble_sort(BidirIt first, BidirIt last, BinaryPred comp = BinaryPred()) {
     if (std::distance(first, last) <= 1) { return; }
     bool flag = true;
@@ -24,13 +24,13 @@ void bubble_sort(BidirIt first, BidirIt last, BinaryPred comp = BinaryPred()) {
     }
 }
 
-template <typename BidirIt,
-          typename BinaryPred = std::less<typename std::iterator_traits<BidirIt>::value_type>>
+template<typename BidirIt,
+        typename BinaryPred = std::less<typename std::iterator_traits<BidirIt>::value_type>>
 void insertion_sort(BidirIt first, BidirIt last, BinaryPred comp = BinaryPred()) {
     if (std::distance(first, last) <= 1) { return; }
     for (auto it = first + 1; it != last; ++it) {
         const auto target = *it;
-        auto       itt    = it;
+        auto itt = it;
         for (; std::distance(first, itt) > 0 and comp(target, *(itt - 1)); --itt) {
             *itt = *(itt - 1);
         }
@@ -38,8 +38,8 @@ void insertion_sort(BidirIt first, BidirIt last, BinaryPred comp = BinaryPred())
     }
 }
 
-template <typename BidirIt,
-          typename BinaryPred = std::less<typename std::iterator_traits<BidirIt>::value_type>>
+template<typename BidirIt,
+        typename BinaryPred = std::less<typename std::iterator_traits<BidirIt>::value_type>>
 void selection_sort(BidirIt first, BidirIt last, BinaryPred comp = BinaryPred()) {
     if (std::distance(first, last) <= 1) { return; }
     for (auto it = first; it != last - 1; ++it) {
@@ -55,8 +55,8 @@ void selection_sort(BidirIt first, BidirIt last, BinaryPred comp = BinaryPred())
     }
 }
 
-template <typename FrwdIt,
-          typename BinaryPred = std::less<typename std::iterator_traits<FrwdIt>::value_type>>
+template<typename FrwdIt,
+        typename BinaryPred = std::less<typename std::iterator_traits<FrwdIt>::value_type>>
 void bubble_down_sort(FrwdIt first, FrwdIt last, BinaryPred comp = BinaryPred()) {
     if (std::distance(first, last) <= 1) { return; }
     for (auto it = first; it != last; ++it) {
@@ -68,15 +68,15 @@ void bubble_down_sort(FrwdIt first, FrwdIt last, BinaryPred comp = BinaryPred())
     }
 }
 
-template <typename BidirIt,
-          typename BinaryPred = std::less<typename std::iterator_traits<BidirIt>::value_type>>
+template<typename BidirIt,
+        typename BinaryPred = std::less<typename std::iterator_traits<BidirIt>::value_type>>
 void shell_sort(BidirIt first, BidirIt last, BinaryPred comp = BinaryPred()) {
     const size_t len = std::distance(first, last);
     if (len <= 1) { return; }
     for (size_t step = len / 2; step >= 1; step /= 2) {
         for (auto it = first + step; it != last; ++it) {
             auto target = *it;
-            auto itt    = it - step;
+            auto itt = it - step;
             for (; std::distance(first, itt) >= 0 and comp(target, *itt); itt -= step) {
                 *(itt + step) = *itt;
             }

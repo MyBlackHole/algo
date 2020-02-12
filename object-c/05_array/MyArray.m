@@ -8,9 +8,8 @@
 
 #import "MyArray.h"
 
-@implementation MyArray
-{
-    @private
+@implementation MyArray {
+@private
     NSMutableArray *_data;
     NSUInteger _capacity;
     NSUInteger _count;
@@ -36,7 +35,7 @@
         [NSException raise:NSRangeException format:@"Index out of range."];
     }
     for (NSUInteger i = index + 1; i < _data.count; i++) {
-        _data[i-1] = _data[i];
+        _data[i - 1] = _data[i];
     }
     _count--;
 }
@@ -46,7 +45,7 @@
         [NSException raise:NSRangeException format:@"Index out of range."];
     }
     for (NSUInteger i = _count - 1; i >= index; i--) {
-        _data[i+1] = _data[i];
+        _data[i + 1] = _data[i];
     }
     _data[index] = anObject;
     _count++;

@@ -2,16 +2,16 @@
 #include <unordered_map>
 
 class SolutionOFOneTwoStep {
-  private:
-    static std::unordered_map<size_t, size_t> result_;
+private:
+    static std::unordered_map <size_t, size_t> result_;
 
-  public:
+public:
     enum class POLICY {
         RECURSIVE,
         NONRECURSIVE
     };
 
-  private:
+private:
     size_t recursive(size_t steps) {
         auto iter = result_.find(steps);
         if (result_.end() != iter) {  // found.
@@ -22,6 +22,7 @@ class SolutionOFOneTwoStep {
             return res;
         }
     }
+
     size_t nonrecursive(size_t steps) {
         auto iter = result_.find(steps);
         if (result_.end() != iter) {  // found.
@@ -36,7 +37,7 @@ class SolutionOFOneTwoStep {
         }
     }
 
-  public:
+public:
     size_t operator()(size_t steps, const POLICY policy = POLICY::RECURSIVE) {
         if (policy == POLICY::RECURSIVE) {
             return recursive(steps);
@@ -44,6 +45,7 @@ class SolutionOFOneTwoStep {
             return nonrecursive(steps);
         }
     }
+
     static void debug() {
         for (auto kv : result_) {
             std::cout << kv.first << ' ' << kv.second << std::endl;
@@ -52,7 +54,8 @@ class SolutionOFOneTwoStep {
     }
 };
 
-std::unordered_map<size_t, size_t> SolutionOFOneTwoStep::result_ = {{1, 1}, {2, 2}};
+std::unordered_map <size_t, size_t> SolutionOFOneTwoStep::result_ = {{1, 1},
+                                                                     {2, 2}};
 
 int main() {
     SolutionOFOneTwoStep::debug();

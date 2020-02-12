@@ -7,12 +7,13 @@ from typing import TypeVar, Generic, Generator, Optional
 
 T = TypeVar("T")
 
+
 class TreeNode(Generic[T]):
     def __init__(self, value: T):
         self.val = value
         self.left = None
         self.right = None
-    
+
 
 # Pre-order traversal
 def pre_order(root: Optional[TreeNode[T]]) -> Generator[T, None, None]:
@@ -21,12 +22,14 @@ def pre_order(root: Optional[TreeNode[T]]) -> Generator[T, None, None]:
         yield from pre_order(root.left)
         yield from pre_order(root.right)
 
+
 # In-order traversal
 def in_order(root: Optional[TreeNode[T]]) -> Generator[T, None, None]:
     if root:
         yield from in_order(root.left)
         yield root.val
         yield from in_order(root.right)
+
 
 # Post-order traversal
 def post_order(root: Optional[TreeNode[T]]) -> Generator[T, None, None]:
@@ -37,7 +40,6 @@ def post_order(root: Optional[TreeNode[T]]) -> Generator[T, None, None]:
 
 
 if __name__ == "__main__":
-
     singer = TreeNode("Taylor Swift")
 
     genre_country = TreeNode("Country")

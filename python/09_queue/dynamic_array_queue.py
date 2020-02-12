@@ -4,6 +4,7 @@
 
 from typing import Optional
 
+
 class DynamicArrayQueue:
 
     def __init__(self, capacity: int):
@@ -11,15 +12,15 @@ class DynamicArrayQueue:
         self._capacity = capacity
         self._head = 0
         self._tail = 0
-    
+
     def enqueue(self, item: str) -> bool:
         if self._tail == self._capacity:
             if self._head == 0: return False
-            
-            self._items[0 : self._tail - self._head] = self._items[self._head : self._tail]
+
+            self._items[0: self._tail - self._head] = self._items[self._head: self._tail]
             self._tail -= self._head
             self._head = 0
-        
+
         if self._tail == len(self._items):
             self._items.append(item)
         else:
@@ -32,9 +33,10 @@ class DynamicArrayQueue:
             item = self._items[self._head]
             self._head += 1
             return item
-    
+
     def __repr__(self) -> str:
         return " ".join(item for item in self._items[self._head:self._tail])
+
 
 if __name__ == "__main__":
     q = DynamicArrayQueue(10)

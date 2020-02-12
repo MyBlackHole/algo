@@ -8,12 +8,12 @@
 
 #include "counting_sort.hpp"
 
-template <typename Container,
-          typename T = typename Container::value_type>
+template<typename Container,
+        typename T = typename Container::value_type>
 void test_counting_sort(Container cont) {
     counting_sort(cont.begin(), cont.end());
     std::transform(cont.begin(), cont.end(), std::ostream_iterator<T>(std::cout, " "),
-            [](T i){ return i; });
+                   [](T i) { return i; });
     std::cout << std::endl;
 }
 

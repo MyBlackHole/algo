@@ -1,0 +1,4 @@
+/home/black/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/201.4865.10/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/black/CLionProjects/algo/c-cpp
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/black/CLionProjects/algo/c-cpp/cmake-build-debug

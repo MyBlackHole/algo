@@ -3,7 +3,6 @@
 
 class Undigraph(object):
 
-
     def __init__(self, vertex_num):
         self.v_num = vertex_num
         self.adj_tbl = []
@@ -16,7 +15,7 @@ class Undigraph(object):
         self.adj_tbl[s].append(t)
         self.adj_tbl[t].append(s)
         return True
-    
+
     def __len__(self):
         return self.v_num
 
@@ -34,13 +33,12 @@ class Undigraph(object):
 
 class Digraph(object):
 
-
     def __init__(self, vertex_num):
         self.v_num = vertex_num
         self.adj_tbl = []
         for i in range(self.v_num + 1):
             self.adj_tbl.append([])
-    
+
     def add_edge(self, frm, to):
         if frm > self.v_num or to > self.v_num:
             return False
@@ -67,7 +65,7 @@ if __name__ == '__main__':
     ug.add_edge(1, 3)
     ug.add_edge(3, 2)
     print(ug.adj_tbl)
-    
+
     dg = Digraph(10)
     dg.add_edge(1, 9)
     dg.add_edge(1, 3)

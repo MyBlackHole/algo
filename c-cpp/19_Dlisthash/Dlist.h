@@ -21,17 +21,15 @@ struct list_head {
     struct list_head name = LIST_HEAD_INIT(name)
 
 // 初始化节点：将list节点的前继节点和后继节点都是指向list本身。
-static inline void INIT_LIST_HEAD(struct list_head *list)
-{
+static inline void INIT_LIST_HEAD(struct list_head *list) {
     list->next = list;
     list->prev = list;
 }
 
 // 添加节点：将new插入到prev和next之间。
 static inline void __list_add(struct list_head *new,
-                  struct list_head *prev,
-                  struct list_head *next)
-{
+                              struct list_head *prev,
+                              struct list_head *next) {
     next->prev = new;
     new->next = next;
     new->prev = prev;
@@ -39,47 +37,40 @@ static inline void __list_add(struct list_head *new,
 }
 
 // 添加new节点：将new添加到head之后，是new称为head的后继节点。
-static inline void list_add(struct list_head *new, struct list_head *head)
-{
+static inline void list_add(struct list_head *new, struct list_head *head) {
     __list_add(new, head, head->next);
 }
 
 // 添加new节点：将new添加到head之前，即将new添加到双链表的末尾。
-static inline void list_add_tail(struct list_head *new, struct list_head *head)
-{
+static inline void list_add_tail(struct list_head *new, struct list_head *head) {
     __list_add(new, head->prev, head);
 }
 
 // 从双链表中删除entry节点。
-static inline void __list_del(struct list_head * prev, struct list_head * next)
-{
+static inline void __list_del(struct list_head *prev, struct list_head *next) {
     next->prev = prev;
     prev->next = next;
 }
 
 // 从双链表中删除entry节点。
-static inline void list_del(struct list_head *entry)
-{
+static inline void list_del(struct list_head *entry) {
     __list_del(entry->prev, entry->next);
 }
 
 // 从双链表中删除entry节点。
-static inline void __list_del_entry(struct list_head *entry)
-{
+static inline void __list_del_entry(struct list_head *entry) {
     __list_del(entry->prev, entry->next);
 }
 
 // 从双链表中删除entry节点，并将entry节点的前继节点和后继节点都指向entry本身。
-static inline void list_del_init(struct list_head *entry)
-{
+static inline void list_del_init(struct list_head *entry) {
     __list_del_entry(entry);
     INIT_LIST_HEAD(entry);
 }
 
 // 用new节点取代old节点
 static inline void list_replace(struct list_head *old,
-                struct list_head *new)
-{
+                                struct list_head *new) {
     new->next = old->next;
     new->next->prev = new;
     new->prev = old->prev;
@@ -87,8 +78,7 @@ static inline void list_replace(struct list_head *old,
 }
 
 // 双链表是否为空
-static inline int list_empty(const struct list_head *head)
-{
+static inline int list_empty(const struct list_head *head) {
     return head->next == head;
 }
 

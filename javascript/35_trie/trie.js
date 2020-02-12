@@ -1,7 +1,5 @@
-
-
 class TrieNode {
-    constructor(data){
+    constructor(data) {
         this.data = data;
         this.children = new Array(26);
         this.isEndingChar = false
@@ -10,15 +8,15 @@ class TrieNode {
 
 class TrieTree {
 
-    constructor(data){
+    constructor(data) {
         this.root = new TrieNode('/')
     }
 
-    insert (text) {
+    insert(text) {
         let node = this.root;
         for (let char of text) {
             let index = char.charCodeAt() - 'a'.charCodeAt();
-            if(!node.children[index]) {
+            if (!node.children[index]) {
                 node.children[index] = new TrieNode(char);
             }
             node = node.children[index];
@@ -27,12 +25,12 @@ class TrieTree {
         node.isEndingChar = true;
     }
 
-    find (text) {
+    find(text) {
         let node = this.root;
 
-        for(let char of text) {
+        for (let char of text) {
             let index = char.charCodeAt() - 'a'.charCodeAt();
-            if(node.children[index]) {
+            if (node.children[index]) {
                 node = node.children[index];
             } else {
                 return false;
@@ -45,11 +43,11 @@ class TrieTree {
 
 var tree = new TrieTree();
 var strs = ["how", "hi", "her", "hello", "so", "see"];
-for(let str of strs) {
+for (let str of strs) {
     tree.insert(str);
 }
 
-for(let str of strs) {
+for (let str of strs) {
     console.log(tree.find(str));
 }
 

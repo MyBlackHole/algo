@@ -23,7 +23,7 @@ def permutations(nums: List, n: int, pick_count: int):
         for i in range(len(nums) - pick_count):
             permutations_list[pick_count] = nums[i]
             nums[i], nums[len(nums) - pick_count - 1] = nums[len(nums) - pick_count - 1], nums[i]
-            permutations(nums, n-1, pick_count+1)
+            permutations(nums, n - 1, pick_count + 1)
             nums[i], nums[len(nums) - pick_count - 1] = nums[len(nums) - pick_count - 1], nums[i]
 
 
@@ -39,4 +39,3 @@ if __name__ == '__main__':
     print('\n--- permutation list ---')
     permutations_list = [0] * n
     permutations(nums, n, 0)
-

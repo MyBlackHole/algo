@@ -8,10 +8,13 @@
 """
 
 import sys
+
 # 引用当前文件夹下的single_linked_list
 sys.path.append('linked_stack.py')
 from linked_stack import LinkedStack
-#from .linked_stack import LinkedStack
+
+
+# from .linked_stack import LinkedStack
 
 class NewLinkedStack(LinkedStack):
 

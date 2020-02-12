@@ -32,7 +32,7 @@ class Node:
         else:
             self.children.append(None)
             for i in range(length, idx, -1):
-                self.children[i] = self.children[i-1]
+                self.children[i] = self.children[i - 1]
             self.children[idx] = node
 
     def has_child(self, c):
@@ -49,7 +49,7 @@ class Node:
         v = ord(c)
 
         while start <= end:
-            mid = (start + end)//2
+            mid = (start + end) // 2
             if v == ord(self.children[mid].data):
                 return self.children[mid]
             elif v < ord(self.children[mid].data):
@@ -69,11 +69,11 @@ class Node:
         end = len(self.children) - 1
 
         while start <= end:
-            mid = (start + end)//2
+            mid = (start + end) // 2
             if v < ord(self.children[mid].data):
                 end = mid - 1
             else:
-                if mid + 1 == len(self.children) or v < ord(self.children[mid+1].data):
+                if mid + 1 == len(self.children) or v < ord(self.children[mid + 1].data):
                     return mid + 1
                 else:
                     start = mid + 1

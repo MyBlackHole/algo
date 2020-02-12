@@ -92,7 +92,7 @@ class MaxHeap(Heap):
             lc = 2 * idx + 1
             rc = lc + 1
 
-            if rc <= self._length-1:
+            if rc <= self._length - 1:
                 tmp = lc if self._data[lc] > self._data[rc] else rc
             else:
                 tmp = lc
@@ -112,7 +112,7 @@ class MaxHeap(Heap):
 
         nn = self._length - 1
         while nn > 0:
-            p = (nn-1) // 2
+            p = (nn - 1) // 2
 
             if self._data[nn] > self._data[p]:
                 self._data[nn], self._data[p] = self._data[p], self._data[nn]
@@ -134,7 +134,7 @@ class MinHeap(Heap):
             lc = 2 * idx + 1
             rc = lc + 1
 
-            if rc <= self._length-1:
+            if rc <= self._length - 1:
                 tmp = lc if self._data[lc] < self._data[rc] else rc
             else:
                 tmp = lc
@@ -154,7 +154,7 @@ class MinHeap(Heap):
 
         nn = self._length - 1
         while nn > 0:
-            p = (nn-1) // 2
+            p = (nn - 1) // 2
 
             if self._data[nn] < self._data[p]:
                 self._data[nn], self._data[p] = self._data[p], self._data[nn]

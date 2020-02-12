@@ -61,11 +61,11 @@ def dijkstra(g: Graph, s: int, t: int) -> int:
     size = len(g)
 
     pq = VertexPriorityQueue()  # 节点队列
-    in_queue = [False] * size   # 已入队标记
-    vertices = [                # 需要随时更新离s的最短距离的节点列表
+    in_queue = [False] * size  # 已入队标记
+    vertices = [  # 需要随时更新离s的最短距离的节点列表
         Vertex(v, float('inf')) for v in range(size)
     ]
-    predecessor = [-1] * size   # 先驱
+    predecessor = [-1] * size  # 先驱
 
     vertices[s].dist = 0
     pq.put(vertices[s])
@@ -83,7 +83,7 @@ def dijkstra(g: Graph, s: int, t: int) -> int:
                 # 为确保正确，需要手动更新一次
                 vertices[edge.t].dist = v.dist + edge.w
                 predecessor[edge.t] = v.id
-                pq.update_priority()        # 更新堆结构
+                pq.update_priority()  # 更新堆结构
             if not in_queue[edge.t]:
                 pq.put(vertices[edge.t])
                 in_queue[edge.t] = True

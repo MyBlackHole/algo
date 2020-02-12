@@ -25,11 +25,11 @@ def kmp(main, pattern):
     for i in range(n):
         # 在pattern[:j]中，从长到短递归去找最长的和后缀子串匹配的前缀子串
         while j > 0 and main[i] != pattern[j]:
-            j = next[j-1] + 1   # 如果next[j-1] = -1，则要从起始字符取匹配
+            j = next[j - 1] + 1  # 如果next[j-1] = -1，则要从起始字符取匹配
 
         if main[i] == pattern[j]:
-            if j == m-1:
-                return i-m+1
+            if j == m - 1:
+                return i - m + 1
             else:
                 j += 1
     return -1
@@ -60,14 +60,14 @@ def get_next(pattern):
     next[0] = -1
 
     # for i in range(1, m):
-    for i in range(1, m-1):
-        j = next[i-1]       # 取i-1时匹配到的最长前缀子串
-        while j != -1 and pattern[j+1] != pattern[i]:
-            j = next[j]     # 次长的前缀子串的下标，即是next[next[i-1]]
+    for i in range(1, m - 1):
+        j = next[i - 1]  # 取i-1时匹配到的最长前缀子串
+        while j != -1 and pattern[j + 1] != pattern[i]:
+            j = next[j]  # 次长的前缀子串的下标，即是next[next[i-1]]
 
         # 根据上面跳出while的条件，当j=-1时，需要比较pattern[0]和当前字符
         # 如果j!=-1，则pattern[j+1]和pattern[i]一定是相等的
-        if pattern[j+1] == pattern[i]:  # 如果接下来的字符也是匹配的，那i的最长前缀子串下标是next[i-1]+1
+        if pattern[j + 1] == pattern[i]:  # 如果接下来的字符也是匹配的，那i的最长前缀子串下标是next[i-1]+1
             j += 1
         next[i] = j
 

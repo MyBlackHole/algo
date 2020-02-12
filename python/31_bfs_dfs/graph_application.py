@@ -1,9 +1,9 @@
 # -*- coding:utf-8 -*-
 
 
-
 from collections import deque
 from graph import Undigraph
+
 
 def find_vertex_by_degree(graph, s, degree):
     if len(graph) <= 1:
@@ -27,9 +27,9 @@ def find_vertex_by_degree(graph, s, degree):
                     queue.append(adj_v)
         degree -= 1
         if degree == 0 and len(queue) != 0:
-            return queue 
+            return queue
 
-   
+
 if __name__ == '__main__':
     g = Undigraph(8)
     g.add_edge(0, 1)

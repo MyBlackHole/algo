@@ -5,65 +5,71 @@
 #ifndef QUEUE_CIRCULAR_QUEUE_HPP_
 #define QUEUE_CIRCULAR_QUEUE_HPP_
 
-template <typename T>
+template<typename T>
 class CircularQueue {
-  private:
-    T*     items_    = nullptr;
+private:
+    T *items_ = nullptr;
     size_t capacity_ = 0;
-    size_t head_     = 0;
-    size_t tail_     = 0;
+    size_t head_ = 0;
+    size_t tail_ = 0;
 
-  public:
+public:
     CircularQueue() = delete;
+
     CircularQueue(const size_t capacity) : capacity_(capacity) {
         items_ = new T[capacity_];
     }
+
     ~CircularQueue() {
         if (nullptr != items_) {
             delete[] items_;
             items_ = nullptr;
         }
     }
-    CircularQueue(const CircularQueue& other) : capacity_(other.capacity_) {
+
+    CircularQueue(const CircularQueue &other) : capacity_(other.capacity_) {
         items_ = new T[capacity_];
         for (size_t i = other.head_; i != other.tail_; ++i) {
             enqueue(other.items_[i]);
         }
     }
-    CircularQueue& operator=(const CircularQueue& rhs) {
+
+    CircularQueue &operator=(const CircularQueue &rhs) {
         delete[] items_;
-        head_     = 0;
-        tail_     = 0;
+        head_ = 0;
+        tail_ = 0;
         capacity_ = rhs.capacity_;
-        items_    = new T[capacity_];
+        items_ = new T[capacity_];
         for (size_t i = rhs.head_; i != rhs.tail_; ++i) {
             enqueue(rhs.items_[i]);
         }
         return *this;
     }
-    CircularQueue(CircularQueue&& other) : items_(other.items_),
-                                     capacity_(other.capacity_),
-                                     head_(other.head_),
-                                     tail_(other.tail_) {
-        other.items_    = nullptr;
+
+    CircularQueue(CircularQueue &&other) : items_(other.items_),
+                                           capacity_(other.capacity_),
+                                           head_(other.head_),
+                                           tail_(other.tail_) {
+        other.items_ = nullptr;
         other.capacity_ = 0;
-        other.head_     = 0;
-        other.tail_     = 0;
+        other.head_ = 0;
+        other.tail_ = 0;
     }
-    CircularQueue& operator=(CircularQueue&& rhs) {
+
+    CircularQueue &operator=(CircularQueue &&rhs) {
         delete[] items_;
-        items_        = rhs.items_;
-        capacity_     = rhs.capacity_;
-        head_         = rhs.head_;
-        tail_         = rhs.tail_;
-        rhs.items_    = nullptr;
+        items_ = rhs.items_;
+        capacity_ = rhs.capacity_;
+        head_ = rhs.head_;
+        tail_ = rhs.tail_;
+        rhs.items_ = nullptr;
         rhs.capacity_ = 0;
-        rhs.head_     = 0;
-        rhs.tail_     = 0;
+        rhs.head_ = 0;
+        rhs.tail_ = 0;
         return *this;
     }
 
-  public:
+public:
     void enqueue(T item) {
         if ((tail_ + 1) % capacity_ == head_) {
             throw "Push data into a full queue!";
@@ -71,6 +77,7 @@ class CircularQueue {
         items_[tail_] = item;
         tail_ = (tail_ + 1) % capacity_;
     }
+
     T head() const {
         if (head_ != tail_) {
             return items_[head_];
@@ -78,6 +85,7 @@ class CircularQueue {
             throw "Fetch data from an empty queue!";
         }
     }
+
     void dequeue() {
         if (head_ != tail_) {
             head_ = (head_ + 1) % capacity_;
@@ -86,8 +94,8 @@ class CircularQueue {
         }
     }
 
-  public:
-    template <typename UnaryFunc>
+public:
+    template<typename UnaryFunc>
     void traverse(UnaryFunc do_traverse) {
         if (0 == capacity_) return;
         for (size_t i = head_; i % capacity_ != tail_; ++i) {

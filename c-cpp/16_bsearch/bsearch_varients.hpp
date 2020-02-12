@@ -8,19 +8,21 @@
 #include <iterator>
 #include <functional>
 
-enum class BsearchPolicy { UNSPECIFIED, FIRST, LAST, FIRST_NOT_LESS, LAST_NOT_GREATER };
+enum class BsearchPolicy {
+    UNSPECIFIED, FIRST, LAST, FIRST_NOT_LESS, LAST_NOT_GREATER
+};
 
 // Liam Huang: The algorithm works right with iterators that meet the ForwardIterator requirement,
 //             but with a bad time complexity. For better performance, iterators should meet
 //             the RandomAccessIterator requirement.
-template <typename IterT,
-          typename ValueT = typename std::iterator_traits<IterT>::value_type,
-          typename Compare>
+template<typename IterT,
+        typename ValueT = typename std::iterator_traits<IterT>::value_type,
+        typename Compare>
 IterT bsearch(IterT first,
               IterT last,
-             ValueT target,
-            Compare comp,
-      BsearchPolicy policy = BsearchPolicy::UNSPECIFIED) {
+              ValueT target,
+              Compare comp,
+              BsearchPolicy policy = BsearchPolicy::UNSPECIFIED) {
     IterT result = last;
     while (std::distance(first, last) > 0) {
         IterT mid = first + std::distance(first, last) / 2;
@@ -76,14 +78,14 @@ IterT bsearch(IterT first,
     return result;
 }
 
-template <typename IterT,
-          typename ValueT = typename std::iterator_traits<IterT>::value_type,
-          typename Compare = std::less<ValueT>>
+template<typename IterT,
+        typename ValueT = typename std::iterator_traits<IterT>::value_type,
+        typename Compare = std::less <ValueT>>
 IterT bsearch(IterT first,
               IterT last,
-             ValueT target,
-      BsearchPolicy policy = BsearchPolicy::UNSPECIFIED) {
-	return bsearch(first, last, target, Compare(), policy);
+              ValueT target,
+              BsearchPolicy policy = BsearchPolicy::UNSPECIFIED) {
+    return bsearch(first, last, target, Compare(), policy);
 }
 
 #endif  // BSEARCH_BSEARCH_VARIENTS_HPP_

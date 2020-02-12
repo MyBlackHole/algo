@@ -10,8 +10,10 @@
 #include <algorithm>
 #include <vector>
 
-template <typename IterT,
-          typename T = typename std::iterator_traits<IterT>::value_type>
+template<typename IterT,
+        typename T = typename
+std::iterator_traits<IterT>::value_type>
+
 void counting_sort(IterT first, IterT last) {
     const auto len = std::distance(first, last);
     if (len < 2) { return; }
@@ -19,7 +21,7 @@ void counting_sort(IterT first, IterT last) {
     const T max = *std::max_element(first, last);
     if (max == 0) { return; }
 
-    std::vector<size_t> counter(max + 1);
+    std::vector < size_t > counter(max + 1);
     for (IterT i = first; i != last; ++i) {
         ++counter[*i];
     }
@@ -28,7 +30,7 @@ void counting_sort(IterT first, IterT last) {
         counter[j] += counter[j + 1];  // Liam Huang: count of numbers that is not less than j.
     }
 
-    std::vector<T> temp(len);
+    std::vector <T> temp(len);
     for (IterT i = first; i != last; ++i) {
         temp[len - counter[*i]] = *i;
         --counter[*i];                 // Liam Huang: stable for relative position.

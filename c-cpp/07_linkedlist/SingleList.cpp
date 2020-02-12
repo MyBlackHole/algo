@@ -1,420 +1,400 @@
 #include <iostream>
 #include <string>
 #include <functional>
+
 using namespace std;
 
 
 class CElement;
+
 /***
- * @brief µ¥Á´±íÈİÆ÷
+ * @brief å•é“¾è¡¨å®¹å™¨
 */
-class CSingleList
-{
+class CSingleList {
 public:
     CSingleList();
+
     ~CSingleList();
 
     /**
-     * @brief ²åÈë..Á´±íÄ©Î²²åÈë
-     * @return ³É¹¦·µ»Ø·Ç¿ÕÖ¸Õë,·ñÔòÊ§°Ü
+     * @brief æ’å…¥..é“¾è¡¨æœ«å°¾æ’å…¥
+     * @return æˆåŠŸè¿”å›éç©ºæŒ‡é’ˆ,å¦åˆ™å¤±è´¥
     */
-    CElement* Insert(void* lpData, int iDataSize);
-    /**
-     * @brief ²åÈë..Á´±íÖ¸¶¨Î»ÖÃ²åÈë
-     * @return ³É¹¦·µ»Ø·Ç¿ÕÖ¸Õë,·ñÔòÊ§°Ü
-    */
-    CElement* Insert(CElement* lpElement, void* lpData, int iDataSize);
-    /**
-     * @brief É¾³ı
-    */
-    void Delete(CElement*);
+    CElement *Insert(void *lpData, int iDataSize);
 
     /**
-     * @brief Á´Ê×
+     * @brief æ’å…¥..é“¾è¡¨æŒ‡å®šä½ç½®æ’å…¥
+     * @return æˆåŠŸè¿”å›éç©ºæŒ‡é’ˆ,å¦åˆ™å¤±è´¥
     */
-    CElement* Begin();
+    CElement *Insert(CElement *lpElement, void *lpData, int iDataSize);
+
     /**
-     * @brief ÏÂÒ»¸öÔªËØ
+     * @brief åˆ é™¤
     */
-    CElement* Next();
+    void Delete(CElement *);
+
+    /**
+     * @brief é“¾é¦–
+    */
+    CElement *Begin();
+
+    /**
+     * @brief ä¸‹ä¸€ä¸ªå…ƒç´ 
+    */
+    CElement *Next();
+
     /***
-     * @brief Á´Î²
+     * @brief é“¾å°¾
     */
-    CElement* End();
+    CElement *End();
 
     /**
-     * @brief ÊÇ·ñÊÇ¿ÕÁ´±í
-     * @return ¿Õ·µ»ØTRUE£¬·ñÔò·µ»ØFALSE
+     * @brief æ˜¯å¦æ˜¯ç©ºé“¾è¡¨
+     * @return ç©ºè¿”å›TRUEï¼Œå¦åˆ™è¿”å›FALSE
     */
     bool Empty();
 
     /**
-     * @brief ·´×ª
+     * @brief åè½¬
     */
     void Reverse();
 
     /**
-     * @brief ¼ì²â»·
-     * @return ·µ»ØTRUEÊ±±íÊ¾Á´±í´æÔÚ»·,·ñÔò²»´æÔÚ»·.
+     * @brief æ£€æµ‹ç¯
+     * @return è¿”å›TRUEæ—¶è¡¨ç¤ºé“¾è¡¨å­˜åœ¨ç¯,å¦åˆ™ä¸å­˜åœ¨ç¯.
     */
     bool CheckCircle();
 
     /**
-     * @brief ºÏ²¢2¸öÓĞĞòµÄÁ´±í
+     * @brief åˆå¹¶2ä¸ªæœ‰åºçš„é“¾è¡¨
     */
-    void Merge(CSingleList& lst, std::function<int(void* t1, void* t2)>);
+    void Merge(CSingleList &lst, std::function<int(void *t1, void *t2)>);
 
     /**
-     * @brief É¾³ıµ¹ÊıµÚK¸ö½áµã
+     * @brief åˆ é™¤å€’æ•°ç¬¬Kä¸ªç»“ç‚¹
     */
     void DeleteLastKth(int k);
-    /**
-     * @brief ÇóÖĞ¼ä½Úµã
-    */
-    CElement* Center();
-private:
-    void Insert(CElement* lpNewElement, CElement* lpCurElement, bool bBack = true);
-    void Insert(CElement* lpNewElement);
-    CElement* Tail();
 
-	CSingleList(CSingleList const & rhs);
-	CSingleList& operator= (CSingleList const& rhs);
+    /**
+     * @brief æ±‚ä¸­é—´èŠ‚ç‚¹
+    */
+    CElement *Center();
+
 private:
-    /**Í·½áµã*/
-    CElement* m_lpHead;
-    /**ÉÚ±ø*/
-    CElement* m_lpSentinel;
-    /**¿Õ½áµã£¬ÓÃÓÚEnd()·µ»Ø */
-    CElement* m_lpNull;
-    /**µ±Ç°½áµã. Ã¶¾ÙÊ±Ê¹ÓÃ. */
-    CElement* m_lpCur;
+    void Insert(CElement *lpNewElement, CElement *lpCurElement, bool bBack = true);
+
+    void Insert(CElement *lpNewElement);
+
+    CElement *Tail();
+
+    CSingleList(CSingleList const &rhs);
+
+    CSingleList &operator=(CSingleList const &rhs);
+
+private:
+    /**å¤´ç»“ç‚¹*/
+    CElement *m_lpHead;
+    /**å“¨å…µ*/
+    CElement *m_lpSentinel;
+    /**ç©ºç»“ç‚¹ï¼Œç”¨äºEnd()è¿”å› */
+    CElement *m_lpNull;
+    /**å½“å‰ç»“ç‚¹. æšä¸¾æ—¶ä½¿ç”¨. */
+    CElement *m_lpCur;
 };
 
 /***
- * @brief µ¥Á´±í½áµãÔªËØ.
+ * @brief å•é“¾è¡¨ç»“ç‚¹å…ƒç´ .
 */
-class CElement
-{
+class CElement {
     friend class CSingleList;
+
 protected:
     CElement();
+
     ~CElement();
+
 public:
     /***
-     * @brief »ñÈ¡Êı¾İÖ¸Õë
+     * @brief è·å–æ•°æ®æŒ‡é’ˆ
     */
-    void* GetDataPtr();
+    void *GetDataPtr();
+
 protected:
-    /**ÏÂÒ»¸ö½áµã*/
-    CElement* m_lpNext;
-    void* m_lpData;
+    /**ä¸‹ä¸€ä¸ªç»“ç‚¹*/
+    CElement *m_lpNext;
+    void *m_lpData;
 };
 
 
-void CreateList(CSingleList& lst)
-{
-    //Ñ­»·²åÈëÔªËØµ½Á´±íÎ²
-    for(int i=1; i<10;i++)
-    {
-        int* p = new int();
+void CreateList(CSingleList &lst) {
+    //å¾ªç¯æ’å…¥å…ƒç´ åˆ°é“¾è¡¨å°¾
+    for (int i = 1; i < 10; i++) {
+        int *p = new int();
         *p = i;
         lst.Insert(p, 4);
     }
 }
-void PrintList(CSingleList& lst)
-{
-    CElement* lpElement = lst.Begin();
-    while(lpElement != lst.End())
-    {
-        std::cout<<*((int*)lpElement->GetDataPtr())<<std::endl;
+
+void PrintList(CSingleList &lst) {
+    CElement *lpElement = lst.Begin();
+    while (lpElement != lst.End()) {
+        std::cout << *((int *) lpElement->GetDataPtr()) << std::endl;
         lpElement = lst.Next();
     }
 }
 
-int main()
-{
+int main() {
     {
-        /// Á´±íµÄ»ù±¾²Ù×÷£¬²åÈë/Ã¶¾Ù/É¾³ı
+        /// é“¾è¡¨çš„åŸºæœ¬æ“ä½œï¼Œæ’å…¥/æšä¸¾/åˆ é™¤
         CSingleList lst;
-        CElement* lpElement = NULL;
+        CElement *lpElement = NULL;
         CreateList(lst);
 
-        std::cout<<"Ã¶¾ÙÁ´±íµ±Ç°µÄÔªËØ"<<std::endl;
+        std::cout << "æšä¸¾é“¾è¡¨å½“å‰çš„å…ƒç´ " << std::endl;
         PrintList(lst);
 
-        std::cout<<"²éÕÒÖ¸¶¨ÔªËØ,²¢ÔÚÖ¸¶¨ÔªËØºóÃæ²åÈëĞÂÔªËØ"<<std::endl;
+        std::cout << "æŸ¥æ‰¾æŒ‡å®šå…ƒç´ ,å¹¶åœ¨æŒ‡å®šå…ƒç´ åé¢æ’å…¥æ–°å…ƒç´ " << std::endl;
         lpElement = lst.Begin();
-        while(lpElement != lst.End())
-        {
-            if(*((int*)lpElement->GetDataPtr()) == 5)
-            {
-                int* p = new int();
+        while (lpElement != lst.End()) {
+            if (*((int *) lpElement->GetDataPtr()) == 5) {
+                int *p = new int();
                 *p = 55;
-                lst.Insert(lpElement,p, 4);
+                lst.Insert(lpElement, p, 4);
                 break;
-            }else{
+            } else {
                 lpElement = lst.Next();
             }
         }
 
-        std::cout<<"Ã¶¾ÙÁ´±íµ±Ç°µÄÔªËØ"<<std::endl;
+        std::cout << "æšä¸¾é“¾è¡¨å½“å‰çš„å…ƒç´ " << std::endl;
         PrintList(lst);
 
-        std::cout<<"²éÕÒÖ¸¶¨ÔªËØ(Êı×ÖÊÇ7µÄÔªËØ),²¢É¾³ıÖ¸¶¨ÔªËØ"<<std::endl;
+        std::cout << "æŸ¥æ‰¾æŒ‡å®šå…ƒç´ (æ•°å­—æ˜¯7çš„å…ƒç´ ),å¹¶åˆ é™¤æŒ‡å®šå…ƒç´ " << std::endl;
         lpElement = lst.Begin();
-        while(lpElement != lst.End())
-        {
-            if(*((int*)lpElement->GetDataPtr()) == 7)
-            {
+        while (lpElement != lst.End()) {
+            if (*((int *) lpElement->GetDataPtr()) == 7) {
                 lst.Delete(lpElement);
                 break;
-            }else{
+            } else {
                 lpElement = lst.Next();
             }
         }
-        std::cout<<"Ã¶¾ÙÁ´±íµ±Ç°µÄÔªËØ"<<std::endl;
+        std::cout << "æšä¸¾é“¾è¡¨å½“å‰çš„å…ƒç´ " << std::endl;
         PrintList(lst);
     }
 
-    std::cout<<"--------------------------"<<std::endl;
+    std::cout << "--------------------------" << std::endl;
     {
-        /// Á´±íµÄ·´×ª
+        /// é“¾è¡¨çš„åè½¬
         CSingleList lst;
-        CElement* lpElement = NULL;
+        CElement *lpElement = NULL;
         CreateList(lst);
-        std::cout<<"·´×ª"<<std::endl;
+        std::cout << "åè½¬" << std::endl;
         lst.Reverse();
         PrintList(lst);
     }
 
-    std::cout<<"--------------------------"<<std::endl;
+    std::cout << "--------------------------" << std::endl;
     {
-        /// ¼ì²â»·
+        /// æ£€æµ‹ç¯
         CSingleList lst;
-        CElement* lpElement = NULL;
+        CElement *lpElement = NULL;
         CreateList(lst);
-        std::cout<<"¼ì²â»·"<<std::endl;
+        std::cout << "æ£€æµ‹ç¯" << std::endl;
         bool bRet = lst.CheckCircle();
-        if(bRet){
-            std::cout<<"´æÔÚ»·."<<std::endl;
-        }else{
-            std::cout<<"²»´æÔÚ»·."<<std::endl;
+        if (bRet) {
+            std::cout << "å­˜åœ¨ç¯." << std::endl;
+        } else {
+            std::cout << "ä¸å­˜åœ¨ç¯." << std::endl;
         }
     }
 
-    std::cout<<"--------------------------"<<std::endl;
+    std::cout << "--------------------------" << std::endl;
     {
-        /// ÓĞĞòÁ´±íºÏ²¢
-        CSingleList lst,lst2;
-        CElement* lpElement = NULL;
-        for(int i=1; i<30;i++)
-        {
-            int* p = new int();
+        /// æœ‰åºé“¾è¡¨åˆå¹¶
+        CSingleList lst, lst2;
+        CElement *lpElement = NULL;
+        for (int i = 1; i < 30; i++) {
+            int *p = new int();
             *p = i;
-            if(i%4){
+            if (i % 4) {
                 lst2.Insert(p, 4);
-            }else{
+            } else {
                 lst.Insert(p, 4);
             }
         }
-        std::cout<<"Ã¶¾ÙÁ´±íµ±Ç°µÄÔªËØ"<<std::endl;
+        std::cout << "æšä¸¾é“¾è¡¨å½“å‰çš„å…ƒç´ " << std::endl;
         PrintList(lst);
-        std::cout<<"......"<<std::endl;
+        std::cout << "......" << std::endl;
         PrintList(lst2);
-        lst.Merge(lst2,[](void* lpT1, void* lpT2) -> int{
-            if(*((int*)lpT1) < *((int*)lpT2)){
+        lst.Merge(lst2, [](void *lpT1, void *lpT2) -> int {
+            if (*((int *) lpT1) < *((int *) lpT2)) {
                 return -1;
-            }else if(*((int*)lpT1) == *((int*)lpT2)){
+            } else if (*((int *) lpT1) == *((int *) lpT2)) {
                 return 0;
-            }else if(*((int*)lpT1) > *((int*)lpT2)){
+            } else if (*((int *) lpT1) > *((int *) lpT2)) {
                 return 1;
             }
             return 0;
         });
-        std::cout<<"ºÏ²¢Ö®ºó£¬´òÓ¡µ±Ç°Á´±í."<<std::endl;
+        std::cout << "åˆå¹¶ä¹‹åï¼Œæ‰“å°å½“å‰é“¾è¡¨." << std::endl;
         PrintList(lst);
     }
-    std::cout<<"--------------------------"<<std::endl;
+    std::cout << "--------------------------" << std::endl;
     {
-        /// É¾³ıµ¹ÊıµÚK¸ö½áµã,²¢²é¿´ÖĞ¼ä½Úµã
+        /// åˆ é™¤å€’æ•°ç¬¬Kä¸ªç»“ç‚¹,å¹¶æŸ¥çœ‹ä¸­é—´èŠ‚ç‚¹
         CSingleList lst;
         CreateList(lst);
-        std::cout<<"É¾³ıµ¹ÊıµÚ0¸ö½áµã"<<std::endl;
+        std::cout << "åˆ é™¤å€’æ•°ç¬¬0ä¸ªç»“ç‚¹" << std::endl;
         lst.DeleteLastKth(0);
         PrintList(lst);
-        CElement* lpCenter = lst.Center();
-        std::cout<<"ÖĞ¼ä½Úµã:"<<*((int*)lpCenter->GetDataPtr())<<std::endl;
+        CElement *lpCenter = lst.Center();
+        std::cout << "ä¸­é—´èŠ‚ç‚¹:" << *((int *) lpCenter->GetDataPtr()) << std::endl;
 
-        std::cout<<"É¾³ıµ¹ÊıµÚ1¸ö½áµã"<<std::endl;
+        std::cout << "åˆ é™¤å€’æ•°ç¬¬1ä¸ªç»“ç‚¹" << std::endl;
         lst.DeleteLastKth(1);
         PrintList(lst);
         lpCenter = lst.Center();
-        std::cout<<"ÖĞ¼ä½Úµã:"<<*((int*)lpCenter->GetDataPtr())<<std::endl;
+        std::cout << "ä¸­é—´èŠ‚ç‚¹:" << *((int *) lpCenter->GetDataPtr()) << std::endl;
 
-        std::cout<<"É¾³ıµ¹ÊıµÚ3¸ö½áµã"<<std::endl;
+        std::cout << "åˆ é™¤å€’æ•°ç¬¬3ä¸ªç»“ç‚¹" << std::endl;
         lst.DeleteLastKth(3);
         PrintList(lst);
         lpCenter = lst.Center();
-        std::cout<<"ÖĞ¼ä½Úµã:"<<*((int*)lpCenter->GetDataPtr())<<std::endl;
+        std::cout << "ä¸­é—´èŠ‚ç‚¹:" << *((int *) lpCenter->GetDataPtr()) << std::endl;
     }
     std::cin.ignore();
 
     return 0;
 }
 
-CSingleList::CSingleList()
-{
+CSingleList::CSingleList() {
     m_lpHead = new CElement();
     m_lpSentinel = new CElement();
     m_lpNull = new CElement();
     m_lpCur = NULL;
     m_lpHead->m_lpNext = m_lpSentinel;
 }
-CSingleList::~CSingleList()
-{
-    if(NULL != m_lpSentinel)
-    {
+
+CSingleList::~CSingleList() {
+    if (NULL != m_lpSentinel) {
         delete m_lpSentinel;
         m_lpSentinel = NULL;
     }
-    if(NULL != m_lpNull)
-    {
+    if (NULL != m_lpNull) {
         delete m_lpNull;
         m_lpNull = NULL;
     }
-    if(NULL != m_lpHead)
-    {
+    if (NULL != m_lpHead) {
         delete m_lpHead;
         m_lpHead = NULL;
     }
 }
-CElement* CSingleList::Insert(void* lpData, int iDataSize)
-{
-    CElement* lpNewElement = new CElement();
-    if(NULL == lpNewElement)
-    {
+
+CElement *CSingleList::Insert(void *lpData, int iDataSize) {
+    CElement *lpNewElement = new CElement();
+    if (NULL == lpNewElement) {
         return NULL;
     }
     lpNewElement->m_lpData = lpData;
     Insert(lpNewElement, Tail());
     return lpNewElement;
 }
-CElement* CSingleList::Insert(CElement* lpElement, void* lpData, int iDataSize)
-{
-    if((NULL == lpElement) || (End() == lpElement))
-    {
+
+CElement *CSingleList::Insert(CElement *lpElement, void *lpData, int iDataSize) {
+    if ((NULL == lpElement) || (End() == lpElement)) {
         return NULL;
     }
-    CElement* lpNewElement = new CElement();
-    if(NULL == lpNewElement)
-    {
+    CElement *lpNewElement = new CElement();
+    if (NULL == lpNewElement) {
         return NULL;
     }
     lpNewElement->m_lpData = lpData;
     Insert(lpNewElement, lpElement);
     return lpNewElement;
 }
-void CSingleList::Insert(CElement* lpNewElement, CElement* lpCurElement, bool bBack /*= true*/)
-{
-    if(bBack){//²åÈëµ½Ö¸¶¨ÔªËØµÄºóÃæ
+
+void CSingleList::Insert(CElement *lpNewElement, CElement *lpCurElement, bool bBack /*= true*/) {
+    if (bBack) {//æ’å…¥åˆ°æŒ‡å®šå…ƒç´ çš„åé¢
         lpNewElement->m_lpNext = lpCurElement->m_lpNext;
         lpCurElement->m_lpNext = lpNewElement;
-    }else{//²åÈëµ½Ö¸¶¨ÔªËØµÄÇ°Ãæ
-        CElement* lpIter = m_lpSentinel;
-        while(NULL != lpIter)
-        {
-            if(lpIter->m_lpNext == lpCurElement)
-            {
+    } else {//æ’å…¥åˆ°æŒ‡å®šå…ƒç´ çš„å‰é¢
+        CElement *lpIter = m_lpSentinel;
+        while (NULL != lpIter) {
+            if (lpIter->m_lpNext == lpCurElement) {
                 lpNewElement->m_lpNext = lpIter->m_lpNext;
                 lpIter->m_lpNext = lpNewElement;
                 break;
-            }else{
+            } else {
                 lpIter = lpIter->m_lpNext;
             }
         }
     }
 }
 
-void CSingleList::Delete(CElement* lpElement)
-{
-    if((NULL == lpElement) || (End() == lpElement))
-    {
+void CSingleList::Delete(CElement *lpElement) {
+    if ((NULL == lpElement) || (End() == lpElement)) {
         return;
     }
-    CElement* lpCurElement = m_lpHead->m_lpNext;
-    while(NULL != lpCurElement->m_lpNext)
-    {
-        if(lpCurElement->m_lpNext == lpElement)
-        {
+    CElement *lpCurElement = m_lpHead->m_lpNext;
+    while (NULL != lpCurElement->m_lpNext) {
+        if (lpCurElement->m_lpNext == lpElement) {
             lpCurElement->m_lpNext = lpCurElement->m_lpNext->m_lpNext;
             break;
-        }else{
+        } else {
             lpCurElement = lpCurElement->m_lpNext;
         }
     }
 }
 
-CElement* CSingleList::Tail()
-{
-    CElement* lpCurElement = m_lpHead->m_lpNext;
-    while(NULL != lpCurElement->m_lpNext)
-    {
+CElement *CSingleList::Tail() {
+    CElement *lpCurElement = m_lpHead->m_lpNext;
+    while (NULL != lpCurElement->m_lpNext) {
         lpCurElement = lpCurElement->m_lpNext;
     }
     return lpCurElement;
 }
 
-CElement* CSingleList::Begin()
-{
+CElement *CSingleList::Begin() {
     m_lpCur = NULL;
-    if(NULL == m_lpHead->m_lpNext->m_lpNext)
-    {
+    if (NULL == m_lpHead->m_lpNext->m_lpNext) {
         m_lpCur = End();
-    }else{
+    } else {
         m_lpCur = m_lpHead->m_lpNext->m_lpNext;
     }
     return m_lpCur;
 }
 
-CElement* CSingleList::Next()
-{
-    if((NULL == m_lpCur) || (End() == m_lpCur))
-    {
+CElement *CSingleList::Next() {
+    if ((NULL == m_lpCur) || (End() == m_lpCur)) {
         return m_lpCur;
     }
     m_lpCur = m_lpCur->m_lpNext;
-    if(NULL == m_lpCur)
-    {
+    if (NULL == m_lpCur) {
         m_lpCur = End();
     }
     return m_lpCur;
 }
 
-CElement* CSingleList::End()
-{
+CElement *CSingleList::End() {
     return m_lpNull;
 }
 
-bool CSingleList::Empty()
-{
+bool CSingleList::Empty() {
     return Begin() == End();
 }
 
-void CSingleList::Reverse()
-{
-    if(Empty())
-    {
+void CSingleList::Reverse() {
+    if (Empty()) {
         return;
     }
-    CElement* lpPre = NULL;
-    CElement* lpTmp = NULL;
-    CElement* lpCurElement = m_lpSentinel->m_lpNext;
-    while(1)
-    {
+    CElement *lpPre = NULL;
+    CElement *lpTmp = NULL;
+    CElement *lpCurElement = m_lpSentinel->m_lpNext;
+    while (1) {
         lpTmp = lpCurElement->m_lpNext;
         lpCurElement->m_lpNext = lpPre;
-        if(NULL == lpTmp)
-        {
+        if (NULL == lpTmp) {
             break;
         }
         lpPre = lpCurElement;
@@ -423,20 +403,16 @@ void CSingleList::Reverse()
     m_lpSentinel->m_lpNext = lpCurElement;
 }
 
-bool CSingleList::CheckCircle()
-{
-    if(Empty())
-    {
+bool CSingleList::CheckCircle() {
+    if (Empty()) {
         return false;
     }
-    CElement* lpFast = m_lpSentinel->m_lpNext;
-    CElement* lpSlow = m_lpSentinel->m_lpNext;
-    while ((NULL != lpFast) && (NULL != lpFast->m_lpNext)) 
-    {
+    CElement *lpFast = m_lpSentinel->m_lpNext;
+    CElement *lpSlow = m_lpSentinel->m_lpNext;
+    while ((NULL != lpFast) && (NULL != lpFast->m_lpNext)) {
         lpFast = lpFast->m_lpNext->m_lpNext;
         lpSlow = lpSlow->m_lpNext;
-        if (lpFast == lpSlow)
-        {
+        if (lpFast == lpSlow) {
             return true;
         }
     }
@@ -444,115 +420,99 @@ bool CSingleList::CheckCircle()
 }
 
 /**
- * ºÏ²¢µÄ2¸öÁ´±í±ØĞëÊÇÓĞĞòµÄ
+ * åˆå¹¶çš„2ä¸ªé“¾è¡¨å¿…é¡»æ˜¯æœ‰åºçš„
 */
-void CSingleList::Merge(CSingleList& lst, std::function<int(void* t1, void* t2)> fnCompare)
-{
-    CElement* lpL1 = Begin();
-    CElement* lpL2 = lst.Begin();
+void CSingleList::Merge(CSingleList &lst, std::function<int(void *t1, void *t2)> fnCompare) {
+    CElement *lpL1 = Begin();
+    CElement *lpL2 = lst.Begin();
 
-    if(!fnCompare)
-    {
+    if (!fnCompare) {
         return;
     }
     int iRet = 0;
-    while((lpL2 != lst.End()))
-    {
-        if(lpL1 != End())
-        {
+    while ((lpL2 != lst.End())) {
+        if (lpL1 != End()) {
             /**
-             * ²éÕÒĞèÒª²åÈëµÄÕıÈ·Î»ÖÃ
+             * æŸ¥æ‰¾éœ€è¦æ’å…¥çš„æ­£ç¡®ä½ç½®
              * 
-             * Á´±í1,Á´±í2; Á´±í1 <- Á´±í2, Á´±í2±»ºÏ²¢µ½Á´±í1ÖĞ
+             * é“¾è¡¨1,é“¾è¡¨2; é“¾è¡¨1 <- é“¾è¡¨2, é“¾è¡¨2è¢«åˆå¹¶åˆ°é“¾è¡¨1ä¸­
              * 
-             * Èç¹ûÁ´±í1µÄÔªËØĞ¡ÓÚÁ´±í2ÖĞµÄÔªËØ£¬ÔòÑ­»·²éÕÒÁ´±í1ÖĞ´óÓÚÁ´±í2ÖĞµÄµ±Ç°ÔªËØµÄÔªËØ
-             * Èç¹ûÔÚÁ´±í1ÖĞÕÒµ½Âú×ãÉÏÃæÌõ¼şµÄµÄÔªËØÎ»ÖÃ[A]Ê±£¬Ôò°ÑÁ´±í2ÖĞµÄµ±Ç°ÔªËØ²åÈëµ½ÔªËØÎ»ÖÃ[A]µÄÇ°Ãæ;
-             * Èç¹ûÔÚÁ´±í1ÖĞ²»´æÔÚÕâ¸öÎ»ÖÃÔòÔÚÁ´±í1µÄÄ©Î»²åÈëÔªËØ
+             * å¦‚æœé“¾è¡¨1çš„å…ƒç´ å°äºé“¾è¡¨2ä¸­çš„å…ƒç´ ï¼Œåˆ™å¾ªç¯æŸ¥æ‰¾é“¾è¡¨1ä¸­å¤§äºé“¾è¡¨2ä¸­çš„å½“å‰å…ƒç´ çš„å…ƒç´ 
+             * å¦‚æœåœ¨é“¾è¡¨1ä¸­æ‰¾åˆ°æ»¡è¶³ä¸Šé¢æ¡ä»¶çš„çš„å…ƒç´ ä½ç½®[A]æ—¶ï¼Œåˆ™æŠŠé“¾è¡¨2ä¸­çš„å½“å‰å…ƒç´ æ’å…¥åˆ°å…ƒç´ ä½ç½®[A]çš„å‰é¢;
+             * å¦‚æœåœ¨é“¾è¡¨1ä¸­ä¸å­˜åœ¨è¿™ä¸ªä½ç½®åˆ™åœ¨é“¾è¡¨1çš„æœ«ä½æ’å…¥å…ƒç´ 
             */
             iRet = fnCompare(lpL1->GetDataPtr(), lpL2->GetDataPtr());
-            if(iRet < 0){
+            if (iRet < 0) {
                 lpL1 = Next();
-                while(lpL1 != End()){
+                while (lpL1 != End()) {
                     iRet = fnCompare(lpL1->GetDataPtr(), lpL2->GetDataPtr());
-                    if(iRet > 0){
+                    if (iRet > 0) {
                         break;
                     }
                     lpL1 = Next();
                 }
             }
-        }else{
+        } else {
             iRet = -1;
         }
-        CElement* lpNewElement = new CElement();
-        if(NULL != lpNewElement)
-        {
+        CElement *lpNewElement = new CElement();
+        if (NULL != lpNewElement) {
             lpNewElement->m_lpData = lpL2->GetDataPtr();
-            if(lpL1 != End())
-            {
-                Insert(lpNewElement,lpL1, iRet < 0);
-            }else{
-                CElement* lpTail = Tail();
-                Insert(lpNewElement,lpTail);
+            if (lpL1 != End()) {
+                Insert(lpNewElement, lpL1, iRet < 0);
+            } else {
+                CElement *lpTail = Tail();
+                Insert(lpNewElement, lpTail);
             }
         }
         lpL2 = lst.Next();
     }
 }
 
-void CSingleList::DeleteLastKth(int k)
-{
+void CSingleList::DeleteLastKth(int k) {
     int i = 1;
-    if(k <= 0)
-    {
+    if (k <= 0) {
         return;
     }
-    CElement* lpFast = Begin();
-    while((lpFast != End()) && (i < k))
-    {
+    CElement *lpFast = Begin();
+    while ((lpFast != End()) && (i < k)) {
         lpFast = Next();
         ++i;
     }
-    if (lpFast == End())
-    {
+    if (lpFast == End()) {
         return;
     }
-    CElement* lpSlow = Begin();
-    CElement* lpPrev = NULL;
-    while (NULL != lpFast->m_lpNext)
-    {
+    CElement *lpSlow = Begin();
+    CElement *lpPrev = NULL;
+    while (NULL != lpFast->m_lpNext) {
         lpFast = lpFast->m_lpNext;
         lpPrev = lpSlow;
         lpSlow = Next();
     }
-    if(NULL != lpPrev)
-    {
+    if (NULL != lpPrev) {
         lpPrev->m_lpNext = lpPrev->m_lpNext->m_lpNext;
     }
 }
 
-CElement* CSingleList::Center()
-{
-    CElement* lpFast = Begin();
-    CElement* lpSlow = lpFast;
-    while((NULL != lpFast->m_lpNext) && (NULL != lpFast->m_lpNext->m_lpNext))
-    {
+CElement *CSingleList::Center() {
+    CElement *lpFast = Begin();
+    CElement *lpSlow = lpFast;
+    while ((NULL != lpFast->m_lpNext) && (NULL != lpFast->m_lpNext->m_lpNext)) {
         lpFast = lpFast->m_lpNext->m_lpNext;
         lpSlow = lpSlow->m_lpNext;
     }
     return lpSlow;
 }
 
-CElement::CElement()
-{
+CElement::CElement() {
     m_lpNext = NULL;
     m_lpData = NULL;
 }
-CElement::~CElement()
-{
+
+CElement::~CElement() {
 
 }
 
-void* CElement::GetDataPtr()
-{
+void *CElement::GetDataPtr() {
     return m_lpData;
 }

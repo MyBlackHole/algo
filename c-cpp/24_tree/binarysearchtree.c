@@ -26,27 +26,26 @@ Status Insert(BTreePtr *T, ElemType e) {
     BTreePtr p;
 
     if (*T == NULL) {
-        *T = (BTreePtr)malloc(sizeof(BTree));
+        *T = (BTreePtr) malloc(sizeof(BTree));
         (*T)->data = e;
 
         return TRUE;
     } else {
         p = *T;
-        while ( p != NULL) {
+        while (p != NULL) {
 
             if (e > p->data) {
 
                 if (p->rchild == NULL) {
-                    p->rchild = (BTreePtr) malloc (sizeof(BTree));
+                    p->rchild = (BTreePtr) malloc(sizeof(BTree));
                     p->rchild->data = e;
                     return TRUE;
                 }
                 p = p->rchild;
             } else {
 
-                if (p->lchild == NULL)
-                {
-                    p->lchild = (BTreePtr) malloc (sizeof(BTree));
+                if (p->lchild == NULL) {
+                    p->lchild = (BTreePtr) malloc(sizeof(BTree));
                     p->lchild->data = e;
                     return TRUE;
                 }
@@ -65,7 +64,7 @@ Status Delete(BTreePtr T, ElemType e) {
     p = T;
     pp = NULL;
 
-    while ( (p != NULL) && (p->data != e) ) {
+    while ((p != NULL) && (p->data != e)) {
         pp = p;
 
         if (e > p->data) {
@@ -78,8 +77,7 @@ Status Delete(BTreePtr T, ElemType e) {
     if (p == NULL) return FALSE;
 
     //双节点
-    if ((p->lchild != NULL) && (p->rchild != NULL))
-    {
+    if ((p->lchild != NULL) && (p->rchild != NULL)) {
         minPP = p;
         minP = p->rchild;
 
@@ -100,14 +98,12 @@ Status Delete(BTreePtr T, ElemType e) {
         if (p->lchild) {
             child = p->lchild;
         } else {
-           child = p->rchild;
+            child = p->rchild;
         }
-        if(pp->data>p->data)
-        {
-            pp->lchild=child;
-        } else
-        {
-            pp->rchild=child;
+        if (pp->data > p->data) {
+            pp->lchild = child;
+        } else {
+            pp->rchild = child;
         }
         free(p);
         return TRUE;
@@ -150,7 +146,7 @@ Status Find(BTreePtr T, ElemType e) {
 ElemType FindMax(BTreePtr T) {
     ElemType max;
 
-    while(T != NULL) {
+    while (T != NULL) {
         max = T->data;
         T = T->rchild;
     }
@@ -162,7 +158,7 @@ ElemType FindMax(BTreePtr T) {
 ElemType FindMin(BTreePtr T) {
     ElemType min;
 
-    while(T != NULL) {
+    while (T != NULL) {
         min = T->data;
         T = T->lchild;
     }
@@ -174,9 +170,8 @@ void PreOrderTraverse(BTreePtr T)//前序遍历二叉树
 {
     if (T == NULL) return;
 
-    if(T)
-    {
-        printf("%d ",T->data);
+    if (T) {
+        printf("%d ", T->data);
         PreOrderTraverse(T->lchild);
         PreOrderTraverse(T->rchild);
     }
@@ -184,15 +179,12 @@ void PreOrderTraverse(BTreePtr T)//前序遍历二叉树
 
 
 void DestroyTree(BTreePtr T) {
-    if (T)
-    {
-        if (T->lchild)
-        {
+    if (T) {
+        if (T->lchild) {
             DestroyTree(T->lchild);
         }
 
-        if(T->rchild)
-        {
+        if (T->rchild) {
             DestroyTree(T->rchild);
         }
 
@@ -202,8 +194,7 @@ void DestroyTree(BTreePtr T) {
 }
 
 /***************** 执行测试 *************************/
-int main(int argc, char const *argv[])
-{
+int main(int argc, char const *argv[]) {
     BTreePtr T;
     T = NULL;
     int a[] = {33, 16, 50, 13, 18, 34, 58, 15, 17, 25, 51, 66, 19, 27, 55};

@@ -10,6 +10,7 @@ class HeapSort {
         this.originArray = originArray
         console.log(this.originArray)
     }
+
     buildHeap() {
         const arr = this.originArray
         const startIndex = Math.floor(arr.length)

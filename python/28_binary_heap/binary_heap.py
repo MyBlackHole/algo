@@ -9,6 +9,7 @@ class BinaryHeap:
     """
     大顶堆
     """
+
     def __init__(self, data=None, capacity=100):
         self._data = []
         self._capacity = capacity
@@ -25,7 +26,7 @@ class BinaryHeap:
         堆化
         :return:
         """
-        self._heapify(self._data, self._length-1)
+        self._heapify(self._data, self._length - 1)
 
     def _heapify(self, data, tail_idx):
         """
@@ -104,7 +105,7 @@ class BinaryHeap:
         nn = length - 1
         # bottom-up
         while nn > 0:
-            p = (nn-1) // 2
+            p = (nn - 1) // 2
             if data[nn] > data[p]:
                 data[nn], data[p] = data[p], data[nn]
                 nn = p
@@ -152,7 +153,7 @@ class BinaryHeap:
 
         # length == 0 or == 1, return
         if length > 1:
-            BinaryHeap._heap_down(data, 0, length-1)
+            BinaryHeap._heap_down(data, 0, length - 1)
 
         return ret
 
@@ -178,7 +179,7 @@ class BinaryHeap:
         for i, n in enumerate(data):
             ret += str(n)
             # 每行最后一个换行
-            if i == 2**int(math.log(i+1, 2)+1) - 2 or i == len(data) - 1:
+            if i == 2 ** int(math.log(i + 1, 2) + 1) - 2 or i == len(data) - 1:
                 ret += '\n'
             else:
                 ret += ', '

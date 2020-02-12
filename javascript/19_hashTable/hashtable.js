@@ -2,7 +2,7 @@
  *  带碰撞处理的Hash表
  *  实际上在js中,单独实现一个Hash表感觉不是很有实用价值
  *  如果需要通常是直接将Object,Map,Set来当Hash表用
- *  
+ *
  * 总结：
  *  我写的这个实现把store 从Object换成Array不会有运行性能上的区别
  *  把hash函数改成生成一定范围的值的类型,然后初始化一个指定长度的数组因该会有一定的性能提升
@@ -13,9 +13,10 @@ class HashTable {
         //创建一个没有原型链的对象
         this.store = Object.create(null);
     }
+
     /**
      *  Donald E. Knuth在“计算机编程艺术第3卷”中提出的算法，主题是排序和搜索第6.4章。
-     * @param {*} string 
+     * @param {*} string
      *  翻译自别的语言的实现
      *  需要注意的是由于js中没有int类型，number是dobule的标准实现
      *  所以返回前的位运算实际和本来的设想不一致，也就是同样的实现，在别的语言中返回可能不同
@@ -32,9 +33,10 @@ class HashTable {
     isCresh(item) {
         return Object.prototype.toString.call(item) === "[object Map]"
     }
+
     /**
      * 约定item必须要有key
-     * @param {*} item 
+     * @param {*} item
      */
     put(item) {
         if (typeof item.key !== 'string') {
@@ -57,6 +59,7 @@ class HashTable {
             this.store[hash] = item;
         }
     }
+
     get(key) {
         let hash = this.hash(key);
         let value = this.store[hash] || null;
@@ -66,6 +69,7 @@ class HashTable {
             return value
         }
     }
+
     remove(key) {
         let hash = this.hash(key);
         let value = this.store[hash];
@@ -78,9 +82,11 @@ class HashTable {
             delete this.store[hash];
         }
     }
+
     clear() {
         this.store = {};
     }
+
     print() {
         let values = Object.values(this.store);
         values.forEach(element => {
@@ -94,6 +100,7 @@ class HashTable {
         });
     }
 }
+
 /**
  * 相比使用Object和Array做store 运行时的性能提升了三分之一
  * 但当前这种用法没有直接使用Map方便，而且直接使用Map会快的多
@@ -102,9 +109,10 @@ class HashTableBaseMap {
     constructor() {
         this.store = new Map();
     }
+
     /**
      *  Donald E. Knuth在“计算机编程艺术第3卷”中提出的算法，主题是排序和搜索第6.4章。
-     * @param {*} string 
+     * @param {*} string
      *  翻译自别的语言的实现
      *  需要注意的是由于js中没有int类型，number是dobule的标准实现
      *  所以返回前的位运算实际和本来的设想不一致，也就是同样的实现，在别的语言中返回可能不同
@@ -121,9 +129,10 @@ class HashTableBaseMap {
     isCresh(item) {
         return Object.prototype.toString.call(item) === "[object Map]"
     }
+
     /**
      * 约定item必须要有key
-     * @param {*} item 
+     * @param {*} item
      */
     put(item) {
         if (typeof item.key !== 'string') {
@@ -146,6 +155,7 @@ class HashTableBaseMap {
             this.store.set(hash, item);
         }
     }
+
     get(key) {
         let hash = this.hash(key);
         let value = this.store.get(hash);
@@ -155,6 +165,7 @@ class HashTableBaseMap {
             return value
         }
     }
+
     remove(key) {
         let hash = this.hash(key);
         let value = this.store.get(hash);
@@ -167,9 +178,11 @@ class HashTableBaseMap {
             this.store.delete(hash)
         }
     }
+
     clear() {
         this.store = {};
     }
+
     print() {
         this.store.forEach(element => {
             if (this.isCresh(element)) {
@@ -298,6 +311,7 @@ function randKeyTestFromObj() {
     }
     console.timeEnd('get')
 }
+
 /**
  *  直接使用Map的性能测试
  *  结果：创建用时差不多，但是获取快了一个数量级(十倍不止)

@@ -21,9 +21,8 @@ typedef struct Node {
     Status end;
 } Trie, *TriePtr;
 
-void Init(TriePtr *T)
-{
-    (*T) = (TriePtr)malloc(sizeof(Trie));
+void Init(TriePtr *T) {
+    (*T) = (TriePtr) malloc(sizeof(Trie));
     (*T)->data = '/';
     (*T)->end = FALSE;
 }
@@ -33,13 +32,11 @@ void Insert(TriePtr T, char *str) {
     int index;
     char c;
 
-    while(c = *str++)
-    {
+    while (c = *str++) {
         index = c - 'a';
-        if (T->children[index] == NULL)
-        {
+        if (T->children[index] == NULL) {
             TriePtr Node;
-            Node = (TriePtr)malloc(sizeof(Trie));
+            Node = (TriePtr) malloc(sizeof(Trie));
             Node->data = c;
             Node->end = FALSE;
             T->children[index] = Node;
@@ -57,11 +54,9 @@ Status Search(TriePtr T, char *str) {
     int index;
     char c;
 
-    while(c = *str++)
-    {
+    while (c = *str++) {
         index = c - 'a';
-        if (T->children[index] == NULL)
-        {
+        if (T->children[index] == NULL) {
             return FALSE;
         }
 
@@ -76,8 +71,7 @@ Status Search(TriePtr T, char *str) {
 }
 
 
-int main(int argc, char const *argv[])
-{
+int main(int argc, char const *argv[]) {
     TriePtr T;
     Init(&T);
     char *str = "hello";
