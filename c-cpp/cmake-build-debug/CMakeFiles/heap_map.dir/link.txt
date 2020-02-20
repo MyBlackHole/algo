@@ -1,1 +1,0 @@
-/usr/bin/c++  -g  -rdynamic CMakeFiles/heap_map.dir/18_hashtable/hash_map.o  -o heap_map 

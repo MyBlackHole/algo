@@ -101,4 +101,4 @@ int main() {
     test[2] = 2;
     std::cout << test[1] << ' ' << test[2] << std::endl;
     return 0;
-
+}

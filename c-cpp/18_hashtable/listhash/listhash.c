@@ -228,6 +228,7 @@ int main() {
     int i = 0;
     int res = 0;
     char *pres = NULL;
+    //hashtab
     hashtab_node *node = NULL;
     struct test_node *p = NULL;
     hashtab *h = NULL;

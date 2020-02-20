@@ -5,4 +5,4 @@ cmake_minimum_required()
 project(C)
 
 # 指定生成目标
-add_executable(heap_map 18_hashtable/hash_map.cc)
+add_executable(list_heap 18_hashtable/listhash/listhash.c)
