@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "D:/Documents/CLionProjects/algo/c-cpp/18_hashtable/listhash/listhash.c" "D:/Documents/CLionProjects/algo/c-cpp/cmake-build-debug/CMakeFiles/list_heap.dir/18_hashtable/listhash/listhash.c.obj"
+  "/home/black/CLionProjects/algo/c-cpp/18_hashtable/listhash/listhash.c" "/home/black/CLionProjects/algo/c-cpp/cmake-build-debug/CMakeFiles/list_heap.dir/18_hashtable/listhash/listhash.c.o"
   )
-set(CMAKE_C_COMPILER_ID "MSVC")
+set(CMAKE_C_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_C_TARGET_INCLUDE_PATH

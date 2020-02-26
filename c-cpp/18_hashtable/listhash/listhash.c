@@ -1,10 +1,3 @@
-/*************************************************************************
- > File Name: listhash.c
- > Author:  jinshaohui
- > Mail:    jinshaohui789@163.com
- > Time:    18-11-07
- > Desc:    
- ************************************************************************/
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -15,21 +8,33 @@
 #include<mcheck.h>
 #endif
 
-hashtab *hashtab_create(int size, hash_key_func hash_value,
-                        keycmp_func keycmp, hash_node_free_func hash_node_free) {
-    hashtab *h = NULL;
+
+/**
+ * @def hash_tab初始化
+ * @param size:桶的个数
+ * @param hash_value:hash函数
+ * @param key_cmp:key比较
+ * @param hash_node_free:释放内存
+ * @return hash_tab指针
+ */
+hash_tab *hash_tab_create(int size, hash_key_func hash_value,
+                          keycmp_func key_cmp, hash_node_free_func hash_node_free) {
+    hash_tab *h = NULL;
     int i = 0;
 
-    if ((size < 0) || (hash_value == NULL) || (keycmp == NULL)) {
+    if ((size < 0) || (hash_value == NULL) || (key_cmp == NULL)) {
         return NULL;
     }
 
-    h = (hashtab *) malloc(sizeof(hashtab));
+    h = (hash_tab *) malloc(sizeof(hash_tab));
     if (h == NULL) {
         return NULL;
     }
 
-    h->htables = (hashtab_node **) malloc(size * sizeof(hashtab_node *));
+    /**
+     * 申请size份hash_tab_node
+     */
+    h->htables = (hash_tab_node **) malloc(size * sizeof(hash_tab_node *));
     if (h->htables == NULL) {
         return NULL;
     }
@@ -37,7 +42,7 @@ hashtab *hashtab_create(int size, hash_key_func hash_value,
     h->size = size;
     h->nel = 0;
     h->hash_value = hash_value;
-    h->keycmp = keycmp;
+    h->keycmp = key_cmp;
     h->hash_node_free = hash_node_free;
 
     for (i = 0; i < size; i++) {
@@ -47,15 +52,22 @@ hashtab *hashtab_create(int size, hash_key_func hash_value,
     return h;
 }
 
-void hashtab_destory(hashtab *h) {
+/**
+ * @def 释放桶内存
+ * @param h:hash表
+ */
+void hash_tab_destory(hash_tab *h) {
     int i = 0;
-    hashtab_node *cur = NULL;
-    hashtab_node *tmp = NULL;
+    hash_tab_node *cur = NULL;
+    hash_tab_node *tmp = NULL;
 
     if (h == NULL) {
         return;
     }
 
+    /**
+     * 遍历桶
+     */
     for (i = 0; i < h->size; i++) {
         cur = h->htables[i];
         while (cur != NULL) {
@@ -71,12 +83,19 @@ void hashtab_destory(hashtab *h) {
     return;
 }
 
-int hashtab_insert(hashtab *h, void *key, void *data) {
+/**
+ * @def 插入
+ * @param h:hash表
+ * @param key:key
+ * @param data:value
+ * @return int
+ */
+int hash_tab_insert(hash_tab *h, void *key, void *data) {
     unsigned int hvalue = 0;
     int i = 0;
-    hashtab_node *cur = NULL;
-    hashtab_node *prev = NULL;
-    hashtab_node *newnode = NULL;
+    hash_tab_node *cur = NULL;
+    hash_tab_node *prev = NULL;
+    hash_tab_node *newnode = NULL;
 
     if ((h == NULL) || (key == NULL) || (data == NULL)) {
         return 1;
@@ -97,7 +116,7 @@ int hashtab_insert(hashtab *h, void *key, void *data) {
         return 2;
     }
 
-    newnode = (hashtab_node *) malloc(sizeof(hashtab_node));
+    newnode = (hash_tab_node *) malloc(sizeof(hash_tab_node));
     if (newnode == NULL) {
         return 3;
     }
@@ -116,11 +135,17 @@ int hashtab_insert(hashtab *h, void *key, void *data) {
     return 0;
 }
 
-hashtab_node *hashtab_delete(hashtab *h, void *key) {
+/**
+ * @def 删除hash数据节点
+ * @param h:hash表
+ * @param key:key
+ * @return hash_tab_node
+ */
+hash_tab_node *hash_tab_delete(hash_tab *h, void *key) {
     int hvalue = 0;
     int i = 0;
-    hashtab_node *cur = NULL;
-    hashtab_node *prev = NULL;
+    hash_tab_node *cur = NULL;
+    hash_tab_node *prev = NULL;
 
     if ((h == NULL) || (key == NULL)) {
         return NULL;
@@ -146,10 +171,10 @@ hashtab_node *hashtab_delete(hashtab *h, void *key) {
     return NULL;
 }
 
-void *hashtab_search(hashtab *h, void *key) {
+void *hash_tab_search(hash_tab *h, void *key) {
     int hvalue = 0;
     int i = 0;
-    hashtab_node *cur = NULL;
+    hash_tab_node *cur = NULL;
 
     if ((h == NULL) || (key == NULL)) {
         return NULL;
@@ -169,9 +194,9 @@ void *hashtab_search(hashtab *h, void *key) {
     return NULL;
 }
 
-void hashtab_dump(hashtab *h) {
+void hash_tab_dump(hash_tab *h) {
     int i = 0;
-    hashtab_node *cur = NULL;
+    hash_tab_node *cur = NULL;
 
     if (h == NULL) {
         return;
@@ -190,11 +215,12 @@ void hashtab_dump(hashtab *h) {
     printf("\r\n----结束--size[%d],nel[%d]------------", h->size, h->nel);
 }
 
-struct test_node {
-    char key[80];
-    char data[80];
-};
 
+/**
+ * @def 对字符进行hash计算
+ * @param str:key
+ * @return key
+ */
 unsigned int siample_hash(const char *str) {
     register unsigned int hash = 0;
     register unsigned int seed = 131;
@@ -206,15 +232,36 @@ unsigned int siample_hash(const char *str) {
     return hash & (0x7FFFFFFF);
 }
 
-int hashtab_hvalue(hashtab *h, const void *key) {
+/**
+ * @def 桶选择
+ * @param h:hash表
+ * @param key:key
+ * @return int
+ */
+int hash_tab_hvalue(hash_tab *h, const void *key) {
     return (siample_hash(key) % h->size);
 }
 
-int hashtab_keycmp(hashtab *h, const void *key1, const void *key2) {
+/**
+ * 缓存
+ */
+struct test_node {
+    char key[80];
+    char data[80];
+};
+
+/**
+ * @def key比较
+ * @param h:hash表
+ * @param key1:key
+ * @param key2:key
+ * @return int
+ */
+int hash_tab_keycmp(hash_tab *h, const void *key1, const void *key2) {
     return strcmp(key1, key2);
 }
 
-void hashtab_node_free(hashtab_node *node) {
+void hash_tab_node_free(hash_tab_node *node) {
     struct test_node *ptmp = NULL;
 
     ptmp = container(node->key, struct test_node, key);
@@ -223,21 +270,23 @@ void hashtab_node_free(hashtab_node *node) {
     free(node);
 }
 
+
 int main() {
 
     int i = 0;
     int res = 0;
     char *pres = NULL;
-    //hashtab
-    hashtab_node *node = NULL;
+    //hash节点指针声明
+    hash_tab_node *node = NULL;
     struct test_node *p = NULL;
-    hashtab *h = NULL;
+    //hashtab指针声明
+    hash_tab *h = NULL;
 #ifdef MEMORY_TEST
     setenv("MALLOC_TRACE","1.txt",1);
     mtrace();
 #endif
 
-    h = hashtab_create(5, hashtab_hvalue, hashtab_keycmp, hashtab_node_free);
+    h = hash_tab_create(5, hash_tab_hvalue, hash_tab_keycmp, hash_tab_node_free);
     assert(h != NULL);
     while (1) {
         p = (struct test_node *) malloc(sizeof(struct test_node));
@@ -251,7 +300,7 @@ int main() {
             break;
         }
 
-        res = hashtab_insert(h, p->key, p->data);
+        res = hash_tab_insert(h, p->key, p->data);
         if (res != 0) {
             free(p);
             printf("\r\n key[%s],data[%s] insert failed %d", p->key, p->data, res);
@@ -260,7 +309,7 @@ int main() {
         }
     }
 
-    hashtab_dump(h);
+    hash_tab_dump(h);
 
     while (1) {
         p = (struct test_node *) malloc(sizeof(struct test_node));
@@ -272,7 +321,7 @@ int main() {
             free(p);
             break;
         }
-        pres = hashtab_search(h, p->key);
+        pres = hash_tab_search(h, p->key);
         if (pres == NULL) {
             printf("\r\n key[%s] search data failed", p->key);
         } else {
@@ -280,9 +329,12 @@ int main() {
         }
         free(p);
     }
-    hashtab_dump(h);
+    hash_tab_dump(h);
     while (1) {
         p = (struct test_node *) malloc(sizeof(struct test_node));
+        /**
+         * 断言
+         */
         assert(p != NULL);
         printf("\r\n 请输入key 删除节点的数值，当可以等于\"quit\"时退出");
         scanf("%s", p->key);
@@ -291,7 +343,7 @@ int main() {
             free(p);
             break;
         }
-        node = hashtab_delete(h, p->key);
+        node = hash_tab_delete(h, p->key);
         if (node == NULL) {
             printf("\r\n key[%s] delete node failed ", p->key);
         } else {
@@ -299,10 +351,10 @@ int main() {
             h->hash_node_free(node);
         }
         free(p);
-        hashtab_dump(h);
+        hash_tab_dump(h);
     }
 
-    hashtab_destory(h);
+    hash_tab_destory(h);
 #ifdef MEMORY_TEST
     muntrace();
 #endif

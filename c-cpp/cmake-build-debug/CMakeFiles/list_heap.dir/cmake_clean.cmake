@@ -1,8 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/list_heap.dir/18_hashtable/listhash/listhash.c.obj"
-  "list_heap.exe"
-  "list_heap.exe.manifest"
-  "list_heap.lib"
+  "CMakeFiles/list_heap.dir/18_hashtable/listhash/listhash.c.o"
+  "list_heap"
   "list_heap.pdb"
 )
 

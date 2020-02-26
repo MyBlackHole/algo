@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/black/CLionProjects/algo/c-cpp/18_hashtable/listhash/test.c
+stdio.h
+/home/black/CLionProjects/algo/c-cpp/18_hashtable/listhash/stdio.h
+string.h
+/home/black/CLionProjects/algo/c-cpp/18_hashtable/listhash/string.h
+
