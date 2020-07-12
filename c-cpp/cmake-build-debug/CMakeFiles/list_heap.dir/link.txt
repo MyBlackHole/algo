@@ -1,1 +1,0 @@
-/usr/bin/cc -g  -rdynamic CMakeFiles/list_heap.dir/18_hashtable/listhash/listhash.c.o  -o list_heap 

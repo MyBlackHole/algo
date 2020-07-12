@@ -1,3 +1,0 @@
-/home/black/CLionProjects/algo/c-cpp/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/black/CLionProjects/algo/c-cpp/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/black/CLionProjects/algo/c-cpp/cmake-build-debug/CMakeFiles/list_heap.dir
